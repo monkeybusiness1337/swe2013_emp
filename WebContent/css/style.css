@@ -1,0 +1,250 @@
+body{
+	margin: 0px; 
+	margin-bottom: 20px; 
+	padding: 0px;
+	font-family: Arial ;
+}
+*:focus {
+	outline: none;
+} 
+#header{
+	background-image: url(../img/header.png);
+	width: 100%; 
+	height: 54px;
+	box-shadow: 1px 1px 10px #888;
+}
+#logoHeader{
+	background-image: url(../img/logoNeu.png); 
+	background-size: 100% ;
+	background-repeat: no-repeat ;
+	width: 170px ;
+	height: 41px; 
+	float: left; 
+	margin-left: 50px;
+	position: abolute ;
+	margin-top: 8px ;
+}
+
+.eventContainer{
+	margin-top: 30px; 
+	margin-left: 50px; 
+	float: left; 
+	cursor: pointer ;
+	background-color: #f5f5f5; 
+	width: 230px; 
+	height: 450px;
+}
+
+.eventContainer:hover{
+	background-color: #f5e4e4 ;
+	box-shadow: 10px 10px 30px #888;
+}
+
+.teilnehmerContainer{
+	margin-top: 10px; 
+	margin-left: 50px; 
+	cursor: pointer ;
+	background-color: #f5f5f5; 
+	width: 190px; 
+	height: 450px;
+	padding: 20px;
+	font-size: 12px ;
+}
+
+.eventContainerNoHover{
+	margin-top: 30px; 
+	margin-left: 50px; 
+	float: left; 
+	background-color: #f5f5f5; 
+	width: 230px; 
+	height: 450px;
+}
+
+.textField{
+	background: none; 
+	background-image: url(../img/textField.png); 
+	border: none; 
+	width: 285px; 
+	height: 41px; 
+	padding-left: 20px;
+}
+
+.buttonAmber{
+	background: none; 
+	background-image: url(../img/buttonAmber.png); 
+	border: none; 
+	width: 100px; 
+	height: 41px; 
+	color: white ;
+	font-size: 12px ;
+	font-weight: 500 ;
+	cursor: pointer ;
+}
+
+.buttonGray{
+	background: none; 
+	background-image: url(../img/buttonGray.png); 
+	border: none; 
+	width: 100px; 
+	height: 41px; 
+	color: white ;
+	font-size: 12px ;
+	font-weight: 500 ;
+	cursor: pointer ;
+}
+
+#searchField{
+	background: none; 
+	background-image: url(../img/searchField.png); 
+	border: none; 
+	width: 614px; 
+	height: 40px; 
+	margin-top: 9px; 
+	margin-left: 15px; 
+	padding-left: 20px;
+	float: left ;
+}
+
+#searchButton{
+	background: url(../img/zoom_20.png); 
+	height: 20px; 
+	width: 20px; 
+	position: absolute; 
+	z-index: 100; 
+	margin-top: -30px; 
+	margin-left: 810px; 
+	cursor: pointer ;
+}
+
+#content{
+	float: left; 
+	width: 840px ;
+}
+
+.sidebarItem{
+	background-color: #f5f5f5; 
+	width: 300px; 
+	height: 50px;  
+	margin-bottom: 10px ;
+}
+
+.sidebarItem:hover{
+	background-color: #f5e4e4; 
+	width: 300px; 
+	height: 50px;  
+	box-shadow: 2px 2px 10px #888;
+	cursor: pointer ;
+	margin-bottom: 10px ;
+}
+
+.kommentar{
+	float: left; 
+	margin-left: -20px; 
+	background-color: #fafafa; 
+	width: 530px; 
+	margin-top: 3px; 
+	font-size: 12px; 
+	padding: 10px;
+	background-image: url(../img/commentBg.png) ;
+	background-position: 480px bottom ;
+	background-repeat: no-repeat ;
+	background-size: 50px ;
+}
+
+.isEventPost{
+	background-image: url(../img/eventPostBg.png) ;
+	background-position: 480px bottom ;
+	background-repeat: no-repeat ;
+	background-size: 50px ;
+	background-color: #c2c2c2 ;
+}
+
+.isEventPost:hover{
+	background-color: #f0bb2d ;
+	cursor:pointer ;
+}
+
+.teilnehmerLine{
+	margin-top: 15px ;
+}
+
+#welcomeContainer{
+	width:92%; height: 160px; background-color:#f0bb2d; margin-top: 30px; margin-left: 50px; color: white; padding: 0; padding-left: 20px; padding-top:5px;
+}
+
+.clear{
+	clear: both ;
+}
+
+#userMenu ul{
+	list-style: none; padding-left: 0px ;
+	font-size: 12px ;
+	margin-top: 5px ;
+}
+
+#userMenu ul li{
+	background-color: #a1a1a1 ;
+	margin-bottom: 2px ;
+	padding-top: 5px ;
+	padding-bottom: 5px ;
+}
+
+#userMenu ul li a{
+	padding-top: 15px ;
+	color: #565555 ;
+	text-decoration: none ;
+	margin-top: 10px ;
+	margin-left: 10px ;
+}
+
+#userMenu ul li:hover{
+	background-color: #888 ;
+	cursor: pointer ;
+}
+
+#userMenu ul li:hover a, #userMenu ul li a:hover{
+	color: #f0bb2d ;	
+}
+
+.black_overlay {
+	display: none;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	z-index: 1001;
+	-moz-opacity: 0.8;
+	opacity: .80;
+	filter: alpha(opacity = 80);
+}
+
+.white_content {
+	display: none;
+	position: absolute;
+	top: 20%;
+	left: 39%;
+	width: 22%;
+	height: 39%;
+	padding: 16px;
+	border: 1px solid black;
+	background-color: #ded;
+	z-index: 1002;
+	overflow: auto;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+#submenuItemsPMs a, #submenuItemsManageEvents a, #submenuItemsManageUsers a{
+    text-decoration: none ;
+    color: white ;
+}
+#submenuItemsPMs a:hover, #submenuItemsManageEvents a:hover, #submenuItemsManageUsers a:hover{
+    color: #f0bb2d ;
+}
+
+.active{
+    color: red ;
+}

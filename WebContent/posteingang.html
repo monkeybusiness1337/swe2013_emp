@@ -1,0 +1,163 @@
+<html>
+<head>
+<title>EMP - Event Management Project</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	<div id="header">
+		<div id="logoHeader"></div>
+		<input id="searchField" type="text" value="Search... " onclick="document.getElementById('searchField').value=''" />
+		<!-- <img src="img/profileIcon.png" style="float: left; margin-top: 8px; margin-left: 53px" />
+		<img src="img/pmIcon.png" style="float: left; margin-top: 8px; margin-left: 20px" />
+		<img src="img/favIcon.png" style="float: left; margin-top: 8px; margin-left: 20px" />
+		<img src="img/logoutIcon.png" style="float: left; margin-top: 8px; margin-left: 90px" /> -->
+		<div id="userMenuButton" style="background-image: none;background-size: 20%; background-repeat: no-repeat; background-position: 43px 30px ;width:50px;  position: absolute; z-index:199; margin-left: 940px; margin-top: 7px; padding: 3px; cursor: pointer" onclick="if(document.getElementById('userMenu').style.display=='block'){document.getElementById('userMenu').style.display='none';document.getElementById('userMenuButton').style.borderBottomWidth='1px';}else{document.getElementById('userMenu').style.display='block';document.getElementById('userMenuButton').style.borderBottomWidth='0px';}" onmouseover="document.getElementById('userMenuButton').style.backgroundImage='url(dropDownIcon.png)'" onmouseout="document.getElementById('userMenuButton').style.backgroundImage='none'">
+			<img src="img/unfug.jpg" style="width:70%; border-width:1px; border-style:dashed "/>
+		</div>
+		<div id="userMenu" style="display: none; width:200px; z-index: 0; position: absolute; background-color: #565555;box-shadow: 10px 10px 30px #888; margin-left: 940px; margin-top:50px;">
+		<ul>
+		<li>
+		<a href="#">Home</a>
+		</li>
+		<li>
+		<a href="#">Profile</a>
+		</li>
+		<li>
+		<a href="#">Veranstaltungssuche</a>
+		</li>
+		<li>
+		<a href="#">Eigne Veranstaltungen</a>
+		</li>
+		<li>
+		<a href="#">Logout</a>
+		</li>
+		</ul>
+		</div>
+		<div class="clear"></div>
+		<div id="searchButton"></div>
+		
+	</div>
+    <div class="clear"></div>
+    <div id="content" style=" position: relative; float: left; ">
+        <div id="messagesContainerHeader" style="padding:10px; padding-bottom:0px; margin-top:30px; margin-left: 50px; background-color: #f5f5f5; height: 35px">
+            <h3 style="color:#565555;margin:0px">Posteingang<span style="color: red; font-size:12px; font-weight: normal; margin-left:8px">3 new messages!</span></h3>
+        </div>
+        <div id="messageContainer" style="margin-left: 50px">
+            <div id="message" style="margin-top:5px; background-color: #f5f5f5; padding: 10px; ">
+                <div id="messageFromUser" style="float:left">
+                    <img src="img/unfug.jpg" style="width:40%;" />
+                    <p style="font-size:12px; margin-top: 3px; margin-bottom: 0px">unfug1337</p>
+                    <p style="font-size:12px; margin-top: 3px; margin-bottom: 0px; color: red; font-weight:800">ungelesen</p>
+                </div>
+                <div id="messageContent" style="float: left; background-color: darkgray; min-height: 70px; padding: 10px; color: white; font-size: 12px; width: 82%; margin-left: -90px">
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                </div>
+                <div class="clear"></div>
+                <input type="submit" value="Antworten" name="antworten" class="buttonAmber" style="margin-left: 110px; margin-top: 5px" />
+                <input type="submit" value="Gelesen" name="gelesen" class="buttonGray" style="margin-left: 0px; margin-top: 5px" />
+                <input type="submit" value="L&ouml;schen" name="loeschen" class="buttonGray" style="margin-left: 0px; margin-top: 5px" />
+            </div>
+             <div id="message" style="margin-top:5px; background-color: #f5f5f5; padding: 10px; ">
+                <div id="messageFromUser" style="float:left">
+                    <img src="img/unfug.jpg" style="width:40%;" />
+                    <p style="font-size:12px; margin-top: 3px; margin-bottom: 0px">unfug1337</p>
+                    <p style="font-size:12px; margin-top: 3px; margin-bottom: 0px; color: red; font-weight:800">ungelesen</p>
+                </div>
+                <div id="messageContent" style="float: left; background-color: darkgray; min-height: 70px; padding: 10px; color: white; font-size: 12px; width: 82%; margin-left: -90px">
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                </div>
+                <div class="clear"></div>
+                <input type="submit" value="Antworten" name="antworten" class="buttonAmber" style="margin-left: 110px; margin-top: 5px" />
+                <input type="submit" value="Gelesen" name="gelesen" class="buttonGray" style="margin-left: 0px; margin-top: 5px" />
+                <input type="submit" value="L&ouml;schen" name="loeschen" class="buttonGray" style="margin-left: 0px; margin-top: 5px" />
+            </div>
+             <div id="message" style="margin-top:5px; background-color: #f5f5f5; padding: 10px; ">
+                <div id="messageFromUser" style="float:left">
+                    <img src="img/unfug.jpg" style="width:40%;" />
+                    <p style="font-size:12px; margin-top: 3px; margin-bottom: 0px">unfug1337</p>
+                    <p style="font-size:12px; margin-top: 3px; margin-bottom: 0px; color: red; font-weight:800">ungelesen</p>
+                </div>
+                <div id="messageContent" style="float: left; background-color: darkgray; min-height: 70px; padding: 10px; color: white; font-size: 12px; width: 82%; margin-left: -90px">
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                </div>
+                <div class="clear"></div>
+                <input type="submit" value="Antworten" name="antworten" class="buttonAmber" style="margin-left: 110px; margin-top: 5px" />
+                <input type="submit" value="Gelesen" name="gelesen" class="buttonGray" style="margin-left: 0px; margin-top: 5px" />
+                <input type="submit" value="L&ouml;schen" name="loeschen" class="buttonGray" style="margin-left: 0px; margin-top: 5px" />
+            </div>
+            <div id="message" style="margin-top:5px; background-color: #f5f5f5; padding: 10px; ">
+                <div id="messageFromUser" style="float:left">
+                    <img src="img/unfug.jpg" style="width:40%;" />
+                    <p style="font-size:12px; margin-top: 3px; margin-bottom: 0px">unfug1337</p>
+                </div>
+                <div id="messageContent" style="float: left; background-color: darkgray; min-height: 70px; padding: 10px; color: white; font-size: 12px; width: 82%; margin-left: -90px">
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                </div>
+                <div class="clear"></div>
+                <input type="submit" value="Antworten" name="antworten" class="buttonAmber" style="margin-left: 110px; margin-top: 5px" />
+                <input type="submit" value="L&ouml;schen" name="loeschen" class="buttonGray" style="margin-left: 0px; margin-top: 5px" />
+            </div>
+            <div id="message" style="margin-top:5px; background-color: #f5f5f5; padding: 10px; ">
+                <div id="messageFromUser" style="float:left">
+                    <img src="img/unfug.jpg" style="width:40%;" />
+                    <p style="font-size:12px; margin-top: 3px; margin-bottom: 0px">unfug1337</p>
+                </div>
+                <div id="messageContent" style="float: left; background-color: darkgray; min-height: 70px; padding: 10px; color: white; font-size: 12px; width: 82%; margin-left: -90px">
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                </div>
+                <div class="clear"></div>
+                <input type="submit" value="Antworten" name="antworten" class="buttonAmber" style="margin-left: 110px; margin-top: 5px" />
+                <input type="submit" value="L&ouml;schen" name="loeschen" class="buttonGray" style="margin-left: 0px; margin-top: 5px" />
+            </div>
+            <div id="message" style="margin-top:5px; background-color: #f5f5f5; padding: 10px; ">
+                <div id="messageFromUser" style="float:left">
+                    <img src="img/unfug.jpg" style="width:40%;" />
+                    <p style="font-size:12px; margin-top: 3px; margin-bottom: 0px">unfug1337</p>
+                </div>
+                <div id="messageContent" style="float: left; background-color: darkgray; min-height: 70px; padding: 10px; color: white; font-size: 12px; width: 82%; margin-left: -90px">
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                </div>
+                <div class="clear"></div>
+                <input type="submit" value="Antworten" name="antworten" class="buttonAmber" style="margin-left: 110px; margin-top: 5px" />
+                <input type="submit" value="L&ouml;schen" name="loeschen" class="buttonGray" style="margin-left: 0px; margin-top: 5px" />
+            </div>
+        </div>
+    </div>
+    
+	<div id="sidebarRight" style="margin-left: 50px; margin-top: 30px; border: 0px ; border-left-width:1px; border-style: solid; border-color: #bcbcbc; float: left; height: 100%; padding-left: 50px;">
+		<div class="sidebarItem" style="height: auto" onclick="if(document.getElementById('submenuItemsManageEvents').style.display=='none'){document.getElementById('submenuItemsManageEvents').style.display='block'}else{document.getElementById('submenuItemsManageEvents').style.display='none'}">
+			<img src="img/manageEventIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
+			<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #565555">Manage Events</p>
+			<div class="clear"></div>
+                        <div id="submenuItemsManageEvents" style="display: none">
+                            <div style="width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Event erstellen</a></div>
+                            <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Events listen</a></div>
+                        </div>
+                </div>
+		<div class="sidebarItem">
+			<img src="img/statisticsIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
+			<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #565555">Statistics</p>
+			<div class="clear"></div>
+		</div>
+		<div class="sidebarItem">
+			<div style="background-color: #f5f5f5; width: 300px; height: 50px; margin-top: 10px ; ">
+				<img src="img/editIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
+				<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #565555">Edit User Information</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+                <div class="sidebarItem" style="height: auto" onclick="if(document.getElementById('submenuItemsPMs').style.display=='none'){document.getElementById('submenuItemsPMs').style.display='block'}else{document.getElementById('submenuItemsPMs').style.display='none'}">
+			<div style="background-color: #f5f5f5; width: 300px; height: 50px; margin-top: 10px ; ">
+				<img src="img/messageIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
+				<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #f0bb2d">Private Messages<span style="font-size:10px;color:red; margin-left: 15px;">3 new messages!</span></p>
+				<div class="clear"></div>
+                        </div>
+                     <div id="submenuItemsPMs" style="display: none">
+                     <div style="width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Nachricht verfassen</a></div>
+                     <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Posteingang</a></div>
+                     </div>
+                </div>
+	</div>
+	<div class="clear"></div>
+</body>
+</html>
