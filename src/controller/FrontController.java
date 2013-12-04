@@ -38,6 +38,7 @@ public class FrontController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		/*asdasd*/
    		if(request.getParameter("site") != null && request.getParameter("site").equals("start")){
    			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp") ;
    			rd.forward(request, response);
