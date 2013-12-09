@@ -1,7 +1,10 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,9 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import model.Enduser;
 import model.Event;
-import model.Organizer;
 import model.User;
 import daos.EventDAO;
 import daos.UserDAO;
@@ -23,14 +30,16 @@ import daos.UserDAO;
 @WebServlet("/FrontController")
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+    private ServletFileUpload uploader = null;
 	private User session ;
-    /**
-     * Default constructor. 
-     */
-    public FrontController() {
-        // TODO Auto-generated constructor stub
-    	session = null ;
+   
+	@Override
+    public void init() throws ServletException{
+		session = null ;
+        DiskFileItemFactory fileFactory = new DiskFileItemFactory();
+        File filesDir = (File) getServletContext().getAttribute("FILES_DIR_FILE");
+        fileFactory.setRepository(filesDir);
+        this.uploader = new ServletFileUpload(fileFactory);
     }
 
 	/**
@@ -38,7 +47,6 @@ public class FrontController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		/*asdasd*/
    		if(request.getParameter("site") != null && request.getParameter("site").equals("start")){
    			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp") ;
    			rd.forward(request, response);
@@ -49,9 +57,24 @@ public class FrontController extends HttpServlet {
    			RequestDispatcher rd = request.getRequestDispatcher("/veranstaltung.jsp") ;
    			rd.forward(request, response);
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("register")){
-   			UserDAO.getUserDAO().saveUser(new Enduser(request.getParameter("username"), request.getParameter("password")));
+   			Enduser newUser = new Enduser(request.getParameter("username"), request.getParameter("password")) ;
+   			UserDAO.getUserDAO().saveUser(newUser);
+   			request.setAttribute("user", newUser);
    			RequestDispatcher rd = request.getRequestDispatcher("/editUserInfo.jsp") ;
 	   		rd.forward(request, response);
+	   		
+	   		if(request.getParameter("password").equals(request.getParameter("password2")) && request.getParameter("password").length() > 5){
+	   			if(UserDAO.getUserDAO().getUserbyUsername(request.getParameter("username")) == null){	
+	   				UserDAO.getUserDAO().saveUser(new Enduser(request.getParameter("username"), request.getParameter("password")));
+	   				rd = request.getRequestDispatcher("/editUserInfo.jsp") ;
+	   				rd.forward(request, response);
+	   			}
+	   			else {
+	   				response.getWriter().append("<html><body>User Already Exists!</body></html>") ;
+	   			}
+	   		} else {
+	   			response.getWriter().append("<html><body>Password too short!</body></html>") ;
+   			}
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("login")){
    			User userToLogin = UserDAO.getUserDAO().getUserbyUsername(request.getParameter("username")) ;
    			if(userToLogin.getPassword().equals(request.getParameter("password"))){
@@ -59,9 +82,10 @@ public class FrontController extends HttpServlet {
    				RequestDispatcher rd = request.getRequestDispatcher("/organizerLoggedIn.jsp") ;
    	   			rd.forward(request, response);
    			}
-   			else
+   			else{
    				response.getWriter().append("<html><body>fail!</body></html>") ;
-   					
+   			}
+   			
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("logout")){
    			UserDAO.getUserDAO().saveUser(new Enduser(request.getParameter("username"), request.getParameter("password")));
    			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp") ;
@@ -97,14 +121,53 @@ public class FrontController extends HttpServlet {
    				}
    			}
    			out.append("</body></html>") ;
-   		}
+   		}  
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
-
+			 try {
+		            List<FileItem> fileItemsList = uploader.parseRequest(request);
+		            Iterator<FileItem> fileItemsIterator = fileItemsList.iterator();
+	                Enduser user = new Enduser() ;
+	                String userPicPath = "" ;
+		            while(fileItemsIterator.hasNext()){
+		                FileItem fileItem = fileItemsIterator.next();
+		                if(fileItem.isFormField()){
+		                		if(fileItem.getFieldName().equals("uname")){
+		                			user  = (Enduser)UserDAO.getUserDAO().getUserbyUsername(fileItem.getString()) ;
+		                		} else if(fileItem.getFieldName().equals("firstName")){
+		                			user.setFirstName(fileItem.getString());
+		                		} else if(fileItem.getFieldName().equals("lastName")){
+		                			user.setLastName(fileItem.getString());
+		                		} else if(fileItem.getFieldName().equals("birthDate")){
+		                			user.setBirthDate(fileItem.getString());
+		                		}  else if(fileItem.getFieldName().equals("about")){
+		                			user.setAbout(fileItem.getString());
+		                		}
+		      
+		                } else{
+		                	if(fileItem.getFieldName().equals("fileName")){
+				                File file = new File(request.getRealPath("/")+"asd/"+fileItem.getName());
+				                userPicPath = "asd/"+fileItem.getName() ;
+				                fileItem.write(file);
+		                	}
+		                }
+		            }
+		            if(user.getUserPicPath() == null)
+		            	user.setUserPicPath(userPicPath);
+		            UserDAO.getUserDAO().updateUser(user);
+	                request.setAttribute("user", user);
+	                RequestDispatcher rd = request.getRequestDispatcher("/editUserInfo.jsp") ;
+	 		   		rd.forward(request, response);
+	 		   		
+		        } catch (FileUploadException e) {
+		        	response.getWriter().append("<html><body>"+e.toString()+"</body></html>") ;
+		        } catch (Exception e) {
+		        	response.getWriter().append("<html><body>"+e.toString()+"</body></html>") ;
+		        }
+			 
+   		} 
 }

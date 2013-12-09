@@ -1,3 +1,5 @@
+<%@ page import="model.Enduser" %>
+
 <html>
 <head>
 <title>EMP - Event Management Project</title>
@@ -38,32 +40,44 @@
 		
 	</div>
 	<div id="content">
-		<div id="eventLeft" style="float: left">
-			<div class="eventContainerNoHover">
-                            <div style="background-color: #cecece; width: 90%; border: 1px dashed darkgray; margin: 0 auto; margin-top: 10px; margin-bottom: 15px;  height: 280px; cursor:pointer">
-				<img src="img/uploadIcon.png" style="padding:11px; margin-left: 45px; margin-top: 80px; width: 40%;-moz-opacity: 0.7; opacity: 0.7;filter: alpha(opacity = 70);"/>
-                                <p style="font-size:12px; color: #f0bb2d; margin-left: 40px;">Upload User Picture!</p>
-                            </div>
-                            <span style="margin-left: 12px ; font-weight: 800; color: #565555;"><input type="text" name="titel" value="User Name" disabled="disabled" style="width:198px;color:#565555;font-weight:800;font-size:16px;border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: gray; border-style:dashed"/></span>
-					<table style="margin-left: 11px; height: 100px; color: #f0bb2d;  font-size: 12px; margin-top: 8px">
-						<tr><td><img src="img/locationIcon.png" style="margin-left: 1px"/></td><td style="padding-left: 15px"><input type="text" name="firstName" value="Vorname" style="border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/></td></tr>
-						<tr><td><img src="img/dateIcon.png" /></td><td style="padding-left: 14px"><input type="text" name="lastName" value="Nachname" style="border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/></td></tr>
-						<tr><td><img src="img/genreIcon.png" /></td><td style="padding-left: 15px"><input type="text" name="Geburstdatum" value="Birthdate" style="border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/></td></tr>
-					</table>
-			</div>
+		<form method="POST" action="FrontController" enctype="multipart/form-data">
+		<input type="hidden" name="site" value="editUserInfo"/>
+			<div id="eventLeft" style="float: left">
+			<%
+				boolean haspic = ((Enduser)request.getAttribute("user")).getUserPicPath() != null ;
+			%>
+				<div class="eventContainerNoHover">
+	               <div class="<%= !haspic ? "uploadImgBox" : "" %>">
+					<% if(haspic) { %>
+							<img src="${user.userPicPath}" style="width: 200px; margin: 15px; position: relative ;"/>
+	                <% } else { %>
+	                		<img src="img/uploadIcon.png" style="padding:11px; margin-left: 45px; margin-top: 80px; width: 40%;-moz-opacity: 0.7; opacity: 0.7;filter: alpha(opacity = 70);"/>
+	                        <p style="font-size:12px; color: #f0bb2d; margin-left: 40px;">Upload User Picture!</p>
+	                         <input type="file" name="fileName" />
+	                 <% } %>
+	                  </div>
+	                  <span style="margin-left: 12px ; font-weight: 800; color: #565555;"><input type="text" name="username" value="${user.userName}" disabled="disabled" style="width:198px;color:#565555;font-weight:800;font-size:16px;border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: gray; border-style:dashed"/></span>
+						<input type="hidden" name="uname" value="<%=((Enduser)request.getAttribute("user")).getUserName() %>" />
+						<table style="margin-left: 11px; height: 100px; color: #f0bb2d;  font-size: 12px; margin-top: 8px">
+							<tr><td><img src="img/locationIcon.png" style="margin-left: 1px"/></td><td style="padding-left: 15px"><input type="text" name="firstName" value="${user.firstName}" style="width: 160px; border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/></td></tr>
+							<tr><td><img src="img/dateIcon.png" /></td><td style="padding-left: 14px"><input type="text" name="lastName" value="${user.lastName}" style="width: 160px; border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/></td></tr>
+							<tr><td><img src="img/genreIcon.png" /></td><td style="padding-left: 15px"><input type="text" name="birthDate" value="${user.birthDate}" style="width: 160px; border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/></td></tr>
+						</table>
+				</div>
+				<div class="clear"></div>
+	                </div>
+			<div id="eventContainerRechts">
+				<div style="float: left; margin-left: 10px; background-color: #f5f5f5; width: 510px; min-height: 500px; margin-top: 30px; padding: 20px; text-align: justify; font-size:12px; line-height:19px">
+					<h3 style="margin-top: 0px; float: left; font-size:20px; color:#565555">About</h3>
+	                                <input type="reset" value="Verwerfen" class="buttonGray" style="float: right; margin-top: -11px"/>
+	                                <input type="submit" value="Speichern" class="buttonAmber" style="float: right; margin-top: -11px"/>
+	                                <div class="clear"></div>
+					<hr style="margin-bottom: 15px"/>
+	                                <textarea name="about" style="font-family: arial; line-height:19px; text-align:justify; max-width:510px; width:510px; min-height: 500px;border-style:dashed; background-color:transparent">${user.about}</textarea>
+				</div>
+	                </div>
 			<div class="clear"></div>
-                </div>
-		<div id="eventContainerRechts">
-			<div style="float: left; margin-left: 10px; background-color: #f5f5f5; width: 510px; min-height: 500px; margin-top: 30px; padding: 20px; text-align: justify; font-size:12px; line-height:19px">
-				<h3 style="margin-top: 0px; float: left; font-size:20px; color:#565555">About</h3>
-                                <input type="reset" value="Verwerfen" class="buttonGray" style="float: right; margin-top: -11px"/>
-                                <input type="submit" value="Speichern" class="buttonAmber" style="float: right; margin-top: -11px"/>
-                                <div class="clear"></div>
-				<hr style="margin-bottom: 15px"/>
-                                <textarea style="font-family: arial; line-height:19px; text-align:justify; max-width:510px; width:510px; min-height: 500px;border-style:dashed; background-color:transparent">Abouttext...</textarea>
-			</div>
-                </div>
-		<div class="clear"></div>
+		</form>
 	</div>
 	<div id="sidebarRight" style="margin-left: 50px; margin-top: 30px; border: 0px ; border-left-width:1px; border-style: solid; border-color: #bcbcbc; float: left; height: 100%; padding-left: 50px;">
 		<div class="sidebarItem" style="height: auto" onclick="if(document.getElementById('submenuItemsManageEvents').style.display=='none'){document.getElementById('submenuItemsManageEvents').style.display='block'}else{document.getElementById('submenuItemsManageEvents').style.display='none'}">
