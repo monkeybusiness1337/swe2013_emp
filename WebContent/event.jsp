@@ -146,14 +146,14 @@
 										style="margin-top: 10px; margin-left: 15px; float: left; width: 20%">
 										<img src="img/unfug.jpg" style="width: 60%;" />
 										<p style="margin-top: 3px; font-weight: bold;">
-											<%= comment.autor %><br />
+											<%= comment.getAutor() %><br />
 											<span style="font-size: 8px; font-weight: normal">10 Followers</span>
 										</p>
 									</div>
 									<p style="width: 75%; text-align: justify; float: left; margin-top: 7px">
-										<%= comment.commentBody %>
+										<%= comment.getCommentBody() %>
 									</p>
-									<p style="font-size: 9px; color: #565555"><%= comment.draftDate %></p>
+									<p style="font-size: 9px; color: #565555"><%= comment.getDraftDate() %></p>
 									<div class="clear"></div>
 								</div>
 				<%
