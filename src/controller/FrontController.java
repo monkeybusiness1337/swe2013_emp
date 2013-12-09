@@ -57,23 +57,23 @@ public class FrontController extends HttpServlet {
    			RequestDispatcher rd = request.getRequestDispatcher("/veranstaltung.jsp") ;
    			rd.forward(request, response);
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("register")){
-   			Enduser newUser = new Enduser(request.getParameter("username"), request.getParameter("password")) ;
-   			UserDAO.getUserDAO().saveUser(newUser);
-   			request.setAttribute("user", newUser);
-   			RequestDispatcher rd = request.getRequestDispatcher("/editUserInfo.jsp") ;
-	   		rd.forward(request, response);
-	   		
-	   		if(request.getParameter("password").equals(request.getParameter("password2")) && request.getParameter("password").length() > 5){
-	   			if(UserDAO.getUserDAO().getUserbyUsername(request.getParameter("username")) == null){	
-	   				UserDAO.getUserDAO().saveUser(new Enduser(request.getParameter("username"), request.getParameter("password")));
-	   				rd = request.getRequestDispatcher("/editUserInfo.jsp") ;
-	   				rd.forward(request, response);
+	   		if(request.getParameter("password").equals(request.getParameter("password2"))){
+	   			if(request.getParameter("password").length() > 5){
+		   			if(UserDAO.getUserDAO().getUserbyUsername(request.getParameter("username")) == null){	
+		   				Enduser newUser = new Enduser(request.getParameter("username"), request.getParameter("password")) ;
+		   	   			UserDAO.getUserDAO().saveUser(newUser);
+		   	   			request.setAttribute("user", newUser);
+		   	   			RequestDispatcher rd = request.getRequestDispatcher("/editUserInfo.jsp") ;
+		   		   		rd.forward(request, response);
+		   			} else {
+		   				response.getWriter().append("<html><body>User Already Exists!</body></html>") ;
+		   			}
+	   			} else{
+	   				response.getWriter().append("<html><body>Password too short!</body></html>") ;
 	   			}
-	   			else {
-	   				response.getWriter().append("<html><body>User Already Exists!</body></html>") ;
-	   			}
+	   			
 	   		} else {
-	   			response.getWriter().append("<html><body>Password too short!</body></html>") ;
+	   			response.getWriter().append("<html><body>Passwords must match!</body></html>") ;
    			}
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("login")){
    			User userToLogin = UserDAO.getUserDAO().getUserbyUsername(request.getParameter("username")) ;
@@ -83,7 +83,7 @@ public class FrontController extends HttpServlet {
    	   			rd.forward(request, response);
    			}
    			else{
-   				response.getWriter().append("<html><body>fail!</body></html>") ;
+   				response.getWriter().append("<html><body>Wrong user or password!</body></html>") ;
    			}
    			
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("logout")){
@@ -147,7 +147,6 @@ public class FrontController extends HttpServlet {
 		                		}  else if(fileItem.getFieldName().equals("about")){
 		                			user.setAbout(fileItem.getString());
 		                		}
-		      
 		                } else{
 		                	if(fileItem.getFieldName().equals("fileName")){
 				                File file = new File(request.getRealPath("/")+"asd/"+fileItem.getName());
