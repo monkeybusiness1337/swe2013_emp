@@ -123,7 +123,7 @@ public class UserDAO {
 		try {
 			/** get list of persistent users */
 			ArrayList<User> users = (ArrayList<User>) getUserList();
-                       //ArrayList<User> users = new ArrayList<User>() ;
+            //           ArrayList<User> users = new ArrayList<User>() ;
 			/** creating streams for writing to file */
 			file = new FileOutputStream(pathToFile);
 			buffer = new BufferedOutputStream(file);
