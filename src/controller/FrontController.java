@@ -1,17 +1,13 @@
 package controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +20,6 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import model.Enduser;
 import model.Event;
-import model.Organizer;
 import model.User;
 import daos.EventDAO;
 import daos.UserDAO;
@@ -52,7 +47,6 @@ public class FrontController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		/*asdasd*/
    		if(request.getParameter("site") != null && request.getParameter("site").equals("start")){
    			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp") ;
    			rd.forward(request, response);
@@ -68,6 +62,19 @@ public class FrontController extends HttpServlet {
    			request.setAttribute("user", newUser);
    			RequestDispatcher rd = request.getRequestDispatcher("/editUserInfo.jsp") ;
 	   		rd.forward(request, response);
+	   		
+	   		if(request.getParameter("password").equals(request.getParameter("password2")) && request.getParameter("password").length() > 5){
+	   			if(UserDAO.getUserDAO().getUserbyUsername(request.getParameter("username")) == null){	
+	   				UserDAO.getUserDAO().saveUser(new Enduser(request.getParameter("username"), request.getParameter("password")));
+	   				rd = request.getRequestDispatcher("/editUserInfo.jsp") ;
+	   				rd.forward(request, response);
+	   			}
+	   			else {
+	   				response.getWriter().append("<html><body>User Already Exists!</body></html>") ;
+	   			}
+	   		} else {
+	   			response.getWriter().append("<html><body>Password too short!</body></html>") ;
+   			}
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("login")){
    			User userToLogin = UserDAO.getUserDAO().getUserbyUsername(request.getParameter("username")) ;
    			if(userToLogin.getPassword().equals(request.getParameter("password"))){
@@ -75,9 +82,10 @@ public class FrontController extends HttpServlet {
    				RequestDispatcher rd = request.getRequestDispatcher("/organizerLoggedIn.jsp") ;
    	   			rd.forward(request, response);
    			}
-   			else
+   			else{
    				response.getWriter().append("<html><body>fail!</body></html>") ;
-   					
+   			}
+   			
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("logout")){
    			UserDAO.getUserDAO().saveUser(new Enduser(request.getParameter("username"), request.getParameter("password")));
    			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp") ;
@@ -123,7 +131,6 @@ public class FrontController extends HttpServlet {
 			 try {
 		            List<FileItem> fileItemsList = uploader.parseRequest(request);
 		            Iterator<FileItem> fileItemsIterator = fileItemsList.iterator();
-	                PrintWriter p = response.getWriter() ;
 	                Enduser user = new Enduser() ;
 	                String userPicPath = "" ;
 		            while(fileItemsIterator.hasNext()){
@@ -163,5 +170,4 @@ public class FrontController extends HttpServlet {
 		        }
 			 
    		} 
-	//}
 }
