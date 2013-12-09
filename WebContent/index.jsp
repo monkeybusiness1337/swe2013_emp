@@ -13,8 +13,9 @@
 		</div>
 		<div style="float: left">
 		<form>
-		<input type="button" class="buttonAmber" style="margin-left:920px; margin-top: -40px" value="Login" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'"/>
-		<input type="button" class="buttonGray" style="margin-left:1030px; margin-top: -41px" value="Register" onclick = "document.getElementById('light2').style.display='block';document.getElementById('fade').style.display='block'"/>
+		<input type="button" class="buttonAmber" style="margin-left:920px; margin-top: -40px; float: left" value="Login" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'"/>
+		<input type="button" class="buttonGray" style="margin-left:1030px; margin-top: -40px; float: left" value="Register" onclick = "document.getElementById('light2').style.display='block';document.getElementById('fade').style.display='block'"/>
+		<div class="clear"></div>
 		</form>
 		</div>
 		<div class="clear"></div>
