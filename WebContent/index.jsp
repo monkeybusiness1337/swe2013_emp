@@ -120,7 +120,7 @@
 			Password:<br/>
 			<input type="password" name="password" class="textField" style="margin-bottom:15px" />
 			Retype Password:<br/>
-			<input type="password" class="textField" />
+			<input type="password" name="password2" class="textField" />
 			<input type="hidden" value="register" name="site" />
 			<input type="submit" class="buttonAmber" value="Login" style="margin-top:10px"/>
 			<input type="reset" class="buttonGray" value="Reset" style="margin-top:10px"/>	
