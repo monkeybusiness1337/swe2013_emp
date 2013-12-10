@@ -1,7 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * The EventDAO is responsible for the persistent IO regarding objects of type Event. The save routine is stable but non-optimized.
+ * @author max
+ * @version 0.1
  */
+
 package daos;
 
 import java.io.BufferedInputStream;
@@ -31,25 +33,25 @@ import model.Event;
 public class EventDAO {
 
     private static final String EventFile = File.separator + "home" + File.separator + "unfug" + File.separator + "Dokumente" + File.separator + "events.ser";
-    
+
     /**
-	 *  private variables needed to write to file 
+	 *  private variables needed to write to file
 	 */
 	private OutputStream file;
 	private OutputStream buffer;
 	private ObjectOutput output;
 
-	/** 
-	 * private variables needed to read from file 
+	/**
+	 * private variables needed to read from file
 	 */
 	private FileInputStream fileIn;
 	private ObjectInputStream in;
 
-	/** 
+	/**
 	 * private attribute containing filepath
 	 */
 	private String pathToFile ;
-	
+
 	/**
 	 * constructor that sets the path to the file with given value
 	 * @param pathToFile
@@ -58,7 +60,7 @@ public class EventDAO {
 	private EventDAO(String pathToFile) throws IOException {
 		this.pathToFile = pathToFile;
 	}
-        
+
         public static EventDAO getEventDAO(){
             try {
                 return new EventDAO(EventFile) ;
@@ -70,7 +72,7 @@ public class EventDAO {
 
 	/**
 	 * Implementation of getEventList- Method defined by the Interface EventDAO
-	 * 
+	 *
 	 * @throws IOException
 	 * @see EventDAO
 	 */
@@ -79,7 +81,7 @@ public class EventDAO {
 			/** creating a fileinputstream and then an objectinput stream from it*/
 			fileIn = new FileInputStream(pathToFile);
 			in = new ObjectInputStream(fileIn);
-			/** 
+			/**
 			 * reading content of file and casting to arraylist of abstract Events..
 			 * if reading from the right file it'll be always legal to cast
 			 * the read object to an arraylist of type abstractEvent */
@@ -93,7 +95,7 @@ public class EventDAO {
 		} catch (Exception e) {
 			System.out.print("There was a problem while building the Eventlist..");
 			e.printStackTrace();
-		} 
+		}
 		return null ;
 
 	}
@@ -101,7 +103,7 @@ public class EventDAO {
 	/**
 	 * Implementation of getEventbyEventname- Method defined by the Interface
 	 * EventDAO
-	 * 
+	 *
 	 * @see EventDAO
 	 */
 	public Event getEventbyEventname(String Eventname) {
@@ -136,7 +138,7 @@ public class EventDAO {
 			output.writeObject(Events);
 			/** flush it */
 			output.flush();
-			
+
 			/** and finally close the streams */
 			output.close();
 			buffer.close();
@@ -158,7 +160,7 @@ public class EventDAO {
 			ArrayList<Event> Events = (ArrayList<Event>) getEventList();
 			/** variable needed to save match */
 			Event match = null;
-			
+
 			/** iterate over Event list */
 			for (Event u : Events) {
 				/** compare by Eventname (Eventname = pk) */
@@ -171,7 +173,7 @@ public class EventDAO {
 
 			/** remove Event from list */
 			Events.remove(Events.indexOf(match));
-			
+
 			/** create the streams needed to write the file */
 			file = new FileOutputStream(pathToFile);
 			buffer = new BufferedOutputStream(file);
@@ -181,7 +183,7 @@ public class EventDAO {
 			output.writeObject(Events);
 			/** flush it */
 			output.flush();
-			
+
 			/** and finally close the streams */
 			output.close();
 			buffer.close();
@@ -191,14 +193,14 @@ public class EventDAO {
 			throw new IllegalArgumentException("Error while deleting Event!!!" + e.getMessage()) ;
 		}
 	}
-	
+
 	public void deleteEvent(String eventId) throws IllegalArgumentException {
 		try {
 			/** get list of persistent Events */
 			ArrayList<Event> Events = (ArrayList<Event>) getEventList();
 			/** variable needed to save match */
 			Event match = null;
-			
+
 			/** iterate over Event list */
 			for (Event u : Events) {
 				/** compare by Eventname (Eventname = pk) */
@@ -211,7 +213,7 @@ public class EventDAO {
 
 			/** remove Event from list */
 			Events.remove(Events.indexOf(match));
-			
+
 			/** create the streams needed to write the file */
 			file = new FileOutputStream(pathToFile);
 			buffer = new BufferedOutputStream(file);
@@ -221,7 +223,7 @@ public class EventDAO {
 			output.writeObject(Events);
 			/** flush it */
 			output.flush();
-			
+
 			/** and finally close the streams */
 			output.close();
 			buffer.close();

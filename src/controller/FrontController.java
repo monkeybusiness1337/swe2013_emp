@@ -1,4 +1,11 @@
-package controller;
+/**
+ * The front controller receives all requests from the outside world, performs checks and (in case) redirects to the actual
+ * servlet responsible for the job. The business logic is completely encapsulated behind this layer.
+ * @author max
+ * @version 0.1
+ */
+
+ package controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +44,7 @@ public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private ServletFileUpload uploader = null;
 	private User session ;
-   
+
 	@Override
     public void init() throws ServletException{
 		session = null ;
@@ -64,7 +71,7 @@ public class FrontController extends HttpServlet {
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("register")){
 	   		if(request.getParameter("password").equals(request.getParameter("password2"))){
 	   			if(request.getParameter("password").length() > 5){
-		   			if(UserDAO.getUserDAO().getUserbyUsername(request.getParameter("username")) == null){	
+		   			if(UserDAO.getUserDAO().getUserbyUsername(request.getParameter("username")) == null){
 		   				User newUser =  null ;
 		   				if(request.getParameter("enduser") != null && request.getParameter("enduser").equals("on")){
 		   					newUser = new Enduser(request.getParameter("username"), request.getParameter("password")) ;
@@ -99,7 +106,7 @@ public class FrontController extends HttpServlet {
    			User userToLogin = UserDAO.getUserDAO().getUserbyUsername(request.getParameter("username")) ;
    			if(userToLogin.getPassword().equals(request.getParameter("password"))){
    				session = userToLogin ;
-   				
+
    				if(session instanceof Enduser){
 	   				RequestDispatcher rd = request.getRequestDispatcher("/enduserLoggedIn.jsp") ;
 	   				rd.forward(request, response);
@@ -114,7 +121,7 @@ public class FrontController extends HttpServlet {
    			else{
    				response.getWriter().append("<html><body>Wrong user or password!</body></html>") ;
    			}
-   			
+
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("logout")){
    			session = null ;
    			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp") ;
@@ -128,7 +135,7 @@ public class FrontController extends HttpServlet {
    			event.setEventDate(request.getParameter("datum"));
    			event.setOrganizer((Organizer)session);
    			EventDAO.getEventDAO().saveEvent(event);
-   			
+
    			List<Event> events = new ArrayList<Event>() ;
    			for(Event ev : EventDAO.getEventDAO().getEventList()){
    				if(ev.getOrganizer() != null && ev.getOrganizer().getUserId().equals(session.getUserId())){
@@ -136,7 +143,7 @@ public class FrontController extends HttpServlet {
    				}
    			}
    			request.setAttribute("events", events);
-   			
+
    			RequestDispatcher rd = request.getRequestDispatcher("/eventsListen.jsp") ;
 	   		rd.forward(request, response);
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("showEvent")){
@@ -166,7 +173,7 @@ public class FrontController extends HttpServlet {
    				session.setFirstName(request.getParameter("firstName"));
    				session.setLastName(request.getParameter("lastName"));
    				((Enduser) session).setEmail(request.getParameter("email"));
-   				session.setBirthDate(request.getParameter("birthDate")); 
+   				session.setBirthDate(request.getParameter("birthDate"));
    				((Enduser) session).setAbout(request.getParameter("about"));
    				UserDAO.getUserDAO().updateUser(session);
    				request.setAttribute("user", session);
@@ -186,7 +193,7 @@ public class FrontController extends HttpServlet {
    			} else if(session instanceof Administrator){
    				/** not implemented yet*/
    			}
-   			
+
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("deleteEvent")){
    			if(session instanceof Organizer){
    				EventDAO.getEventDAO().deleteEvent(request.getParameter("event"));
@@ -202,7 +209,7 @@ public class FrontController extends HttpServlet {
    			} else if(session instanceof Administrator){
    				response.getWriter().append("<html><body>You don't have the permission to delete Events!</body></html>") ;
    			}
-   			
+
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("search")){
    			ArrayList<Event> searchResult = new ArrayList<Event>() ;
    			for(Event event : EventDAO.getEventDAO().getEventList()){
@@ -210,9 +217,9 @@ public class FrontController extends HttpServlet {
    					searchResult.add(event) ;
    				}
    			}
-   			
+
    			List<Event> filterResult = (ArrayList<Event>) searchResult.clone() ;
-   			
+
    			if(request.getParameter("genre") != null && request.getParameter("genre").length() > 0){
    				for(Event event : searchResult){
    					if(!event.getGenre().contains((CharSequence)request.getParameter("genre").toLowerCase())){
@@ -223,7 +230,7 @@ public class FrontController extends HttpServlet {
    			} else{
    				request.setAttribute("genre", "") ;
    			}
-   			
+
    			if(request.getParameter("location") != null && request.getParameter("location").length() > 0){
    				for(Event event : searchResult){
    					if(!event.getEventPlace().contains((CharSequence)request.getParameter("location").toLowerCase())){
@@ -234,7 +241,7 @@ public class FrontController extends HttpServlet {
    			} else{
    				request.setAttribute("location", "") ;
    			}
-   			
+
    			if(request.getParameter("from") != null && request.getParameter("from").length() > 0){
    				for(Event event : searchResult){
    					try{
@@ -246,15 +253,15 @@ public class FrontController extends HttpServlet {
    	   						filterResult.remove(event) ;
    	   					}
    					} catch(Exception e){
-   						
+
    					}
-   					
+
    				}
    				request.setAttribute("from", request.getParameter("from")) ;
    			} else{
    				request.setAttribute("from", "") ;
    			}
-   			
+
    			if(request.getParameter("to") != null && request.getParameter("to").length() > 0){
    				for(Event event : searchResult){
    					try{
@@ -266,14 +273,14 @@ public class FrontController extends HttpServlet {
    	   						filterResult.remove(event) ;
    	   					}
    					} catch(Exception e){
-   						
+
    					}
    				}
    				request.setAttribute("to", request.getParameter("to")) ;
    			} else{
    				request.setAttribute("to", "") ;
    			}
-   			
+
    			request.setAttribute("searchResult", filterResult);
    			request.setAttribute("searchTerm", request.getParameter("searchTerm")) ;
    			RequestDispatcher rd = request.getRequestDispatcher("/search.jsp") ;
@@ -312,7 +319,7 @@ public class FrontController extends HttpServlet {
 			request.setAttribute("user", user);
             RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoOrganizer.jsp") ;
 		   	rd.forward(request, response);
-			
+
 		} else{
 			 try {
 		            List<FileItem> fileItemsList = uploader.parseRequest(request);
@@ -347,12 +354,12 @@ public class FrontController extends HttpServlet {
 	                request.setAttribute("user", user);
 	                RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoEnduser.jsp") ;
 	 		   		rd.forward(request, response);
-	 		   		
+
 		        } catch (FileUploadException e) {
 		        	response.getWriter().append("<html><body>"+e.toString()+"</body></html>") ;
 		        } catch (Exception e) {
 		        	response.getWriter().append("<html><body>"+e.toString()+"</body></html>") ;
 		        }
-   		} 
+   		}
 	}
 }

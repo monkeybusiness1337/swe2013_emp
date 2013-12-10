@@ -1,7 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/**
+ * The EventDAO is responsible for the persistent IO regarding objects of type User. The save routine is stable but non-optimized.
+ * @author max
+ * @version 0.1
+*/
+
 package daos;
 
 import java.io.BufferedInputStream;
@@ -31,25 +33,25 @@ import model.User;
 public class UserDAO {
 
     private static final String userFile = File.separator + "home" + File.separator + "unfug" + File.separator + "Dokumente" + File.separator + "users.ser";
-    
+
     /**
-	 *  private variables needed to write to file 
+	 *  private variables needed to write to file
 	 */
 	private OutputStream file;
 	private OutputStream buffer;
 	private ObjectOutput output;
 
-	/** 
-	 * private variables needed to read from file 
+	/**
+	 * private variables needed to read from file
 	 */
 	private FileInputStream fileIn;
 	private ObjectInputStream in;
 
-	/** 
+	/**
 	 * private attribute containing filepath
 	 */
 	private String pathToFile ;
-	
+
 	/**
 	 * constructor that sets the path to the file with given value
 	 * @param pathToFile
@@ -58,7 +60,7 @@ public class UserDAO {
 	private UserDAO(String pathToFile) throws IOException {
 		this.pathToFile = pathToFile;
 	}
-        
+
         public static UserDAO getUserDAO(){
             try {
                 return new UserDAO(userFile) ;
@@ -70,7 +72,7 @@ public class UserDAO {
 
 	/**
 	 * Implementation of getUserList- Method defined by the Interface UserDAO
-	 * 
+	 *
 	 * @throws IOException
 	 * @see UserDAO
 	 */
@@ -79,7 +81,7 @@ public class UserDAO {
 			/** creating a fileinputstream and then an objectinput stream from it*/
 			fileIn = new FileInputStream(pathToFile);
 			in = new ObjectInputStream(fileIn);
-			/** 
+			/**
 			 * reading content of file and casting to arraylist of abstract users..
 			 * if reading from the right file it'll be always legal to cast
 			 * the read object to an arraylist of type abstractuser */
@@ -93,7 +95,7 @@ public class UserDAO {
 		} catch (Exception e) {
 			System.out.print("There was a problem while building the userlist..");
 			e.printStackTrace();
-		} 
+		}
 		return null ;
 
 	}
@@ -101,7 +103,7 @@ public class UserDAO {
 	/**
 	 * Implementation of getUserbyUsername- Method defined by the Interface
 	 * UserDAO
-	 * 
+	 *
 	 * @see UserDAO
 	 */
 	public User getUserbyUsername(String username) {
@@ -136,7 +138,7 @@ public class UserDAO {
 			output.writeObject(users);
 			/** flush it */
 			output.flush();
-			
+
 			/** and finally close the streams */
 			output.close();
 			buffer.close();
@@ -158,7 +160,7 @@ public class UserDAO {
 			ArrayList<User> users = (ArrayList<User>) getUserList();
 			/** variable needed to save match */
 			User match = null;
-			
+
 			/** iterate over user list */
 			for (User u : users) {
 				/** compare by username (username = pk) */
@@ -171,7 +173,7 @@ public class UserDAO {
 
 			/** remove user from list */
 			users.remove(users.indexOf(match));
-			
+
 			/** create the streams needed to write the file */
 			file = new FileOutputStream(pathToFile);
 			buffer = new BufferedOutputStream(file);
@@ -181,7 +183,7 @@ public class UserDAO {
 			output.writeObject(users);
 			/** flush it */
 			output.flush();
-			
+
 			/** and finally close the streams */
 			output.close();
 			buffer.close();
