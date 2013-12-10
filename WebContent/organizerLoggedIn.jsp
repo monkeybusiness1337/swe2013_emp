@@ -1,3 +1,4 @@
+<%@ page import="daos.EventDAO" %>
 <html>
 <head>
 <title>EMP - Event Management Project</title>
@@ -40,62 +41,27 @@
 		
 	</div>
 	<div id="content">
-		<div class="eventContainer">
+	<%
+		int index = 0 ;
+		for(model.Event event : EventDAO.getEventDAO().getEventList()){
+	%>
+		<div class="eventContainer" style="height:510px" onclick="document.location='FrontController?site=showEvent&event=<%= event.getEventId() %>'">
 					<img src="img/flyer.png" style="padding:11px"/>
-					<span style="margin-left: 12px ; font-weight: 800; color: #565555;">SP23 Party</span>
-					<table style="margin-left: 11px; height: 100px; color: #f0bb2d;  font-size: 12px; margin-top: 8px">
-						<tr><td><img src="img/locationIcon.png" style="margin-left: 1px"/></td><td style="padding-left: 15px">Stadthalle Wien</td></tr>
-						<tr><td><img src="img/dateIcon.png" /></td><td style="padding-left: 14px">10. November 2013</td></tr>
-						<tr><td><img src="img/genreIcon.png" /></td><td style="padding-left: 15px">Anything</td></tr>
+					<span style="margin-left: 12px ; font-weight: 800; color: #565555;"><%= event.getEventName() %></span>
+					<table style="margin-left: 11px; height: 100px; color: #f0bb2d;  font-size: 12px; margin-top: 8px; margin-bottom: 10px">
+						<tr><td><img src="img/locationIcon.png" style="margin-left: 1px"/></td><td style="padding-left: 15px"><%= event.getEventPlace() %></td></tr>
+						<tr><td><img src="img/dateIcon.png" /></td><td style="padding-left: 14px"><%= event.getEventDate() %></td></tr>
+						<tr><td><img src="img/genreIcon.png" /></td><td style="padding-left: 15px"><%= event.getGenre() %></td></tr>
 					</table>
+                                        <input type="submit" value="Edit" name="edit" class="buttonAmber" style="margin-left:10px; float: left"/>
+                                        <input type="submit" value="Delete" name="delete" class="buttonGray" style="margin-left:5px; float: left"/>
+                                        <div class="clear"></div>
 		</div>
-		<div class="eventContainer">
-					<img src="img/flyer.png" style="padding:11px"/>
-					<span style="margin-left: 12px ; font-weight: 800; color: #565555">SP23 Party</span>
-					<table style="margin-left: 11px; height: 100px; color: #f0bb2d;  font-size: 12px; margin-top: 8px">
-						<tr><td><img src="img/locationIcon.png" style="margin-left: 1px"/></td><td style="padding-left: 15px">Stadthalle Wien</td></tr>
-						<tr><td><img src="img/dateIcon.png" /></td><td style="padding-left: 14px">10. November 2013</td></tr>
-						<tr><td><img src="img/genreIcon.png" /></td><td style="padding-left: 15px">Anything</td></tr>
-					</table>
-		</div>
-		<div class="eventContainer">
-					<img src="img/flyer.png" style="padding:11px"/>
-					<span style="margin-left: 12px ; font-weight: 800; color: #565555">SP23 Party</span>
-					<table style="margin-left: 11px; height: 100px; color: #f0bb2d;  font-size: 12px; margin-top: 8px">
-						<tr><td><img src="img/locationIcon.png" style="margin-left: 1px"/></td><td style="padding-left: 15px">Stadthalle Wien</td></tr>
-						<tr><td><img src="img/dateIcon.png" /></td><td style="padding-left: 14px">10. November 2013</td></tr>
-						<tr><td><img src="img/genreIcon.png" /></td><td style="padding-left: 15px">Anything</td></tr>
-					</table>
-		</div>
-		<div class="clear"></div>
-		<div class="eventContainer">
-					<img src="img/flyer.png" style="padding:11px"/>
-					<span style="margin-left: 12px ; font-weight: 800; color: #565555">SP23 Party</span>
-					<table style="margin-left: 11px; height: 100px; color: #f0bb2d;  font-size: 12px; margin-top: 8px">
-						<tr><td><img src="img/locationIcon.png" style="margin-left: 1px"/></td><td style="padding-left: 15px">Stadthalle Wien</td></tr>
-						<tr><td><img src="img/dateIcon.png" /></td><td style="padding-left: 14px">10. November 2013</td></tr>
-						<tr><td><img src="img/genreIcon.png" /></td><td style="padding-left: 15px">Anything</td></tr>
-					</table>
-		</div>
-		<div class="eventContainer">
-					<img src="img/flyer.png" style="padding:11px"/>
-					<span style="margin-left: 12px ; font-weight: 800; color: #565555">SP23 Party</span>
-					<table style="margin-left: 11px; height: 100px; color: #f0bb2d;  font-size: 12px; margin-top: 8px">
-						<tr><td><img src="img/locationIcon.png" style="margin-left: 1px"/></td><td style="padding-left: 15px">Stadthalle Wien</td></tr>
-						<tr><td><img src="img/dateIcon.png" /></td><td style="padding-left: 14px">10. November 2013</td></tr>
-						<tr><td><img src="img/genreIcon.png" /></td><td style="padding-left: 15px">Anything</td></tr>
-					</table>
-		</div>
-		<div class="eventContainer">
-					<img src="img/flyer.png" style="padding:11px"/>
-					<span style="margin-left: 12px ; font-weight: 800; color: #565555">SP23 Party</span>
-					<table style="margin-left: 11px; height: 100px; color: #f0bb2d;  font-size: 12px; margin-top: 8px">
-						<tr><td><img src="img/locationIcon.png" style="margin-left: 1px"/></td><td style="padding-left: 15px">Stadthalle Wien</td></tr>
-						<tr><td><img src="img/dateIcon.png" /></td><td style="padding-left: 14px">10. November 2013</td></tr>
-						<tr><td><img src="img/genreIcon.png" /></td><td style="padding-left: 15px">Anything</td></tr>
-					</table>
-		</div>
-		<div class="clear"></div>
+		<%
+			if(index > 0 && index++%3 == 0)
+				out.print("<div class='clear'></div>") ;
+		%>
+		<% } %>
 	</div>
 	<div id="sidebarRight" style="margin-left: 50px; margin-top: 30px; border: 0px ; border-left-width:1px; border-style: solid; border-color: #bcbcbc; float: left; height: 100%; padding-left: 50px;">
 		<div class="sidebarItem" style="height: auto" onclick="if(document.getElementById('submenuItemsManageEvents').style.display=='none'){document.getElementById('submenuItemsManageEvents').style.display='block'}else{document.getElementById('submenuItemsManageEvents').style.display='none'}">
@@ -103,8 +69,8 @@
 			<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #565555">Manage Events</p>
 			<div class="clear"></div>
                         <div id="submenuItemsManageEvents" style="display: none">
-                            <div style="width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Event erstellen</a></div>
-                            <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Events listen</a></div>
+                            <div style="width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='createEvent.jsp'>Event erstellen</a></div>
+                            <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='FrontController?site=listOwnEvents'>Events listen</a></div>
                         </div>
                 </div>
 		<div class="sidebarItem">

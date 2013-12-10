@@ -33,7 +33,7 @@
 		int index = 0 ;
 		for(model.Event event : EventDAO.getEventDAO().getEventList()){
 	%>
-		<div class="eventContainer" style="height:510px" onclick="document.location='FrontController?site=showEvent&event=<%= event.getEventId() %>'">
+		<div class="eventContainer" style="height:450px" onclick="document.location='FrontController?site=showEvent&event=<%= event.getEventId() %>'">
 					<img src="img/flyer.png" style="padding:11px"/>
 					<span style="margin-left: 12px ; font-weight: 800; color: #565555;"><%= event.getEventName() %></span>
 					<table style="margin-left: 11px; height: 100px; color: #f0bb2d;  font-size: 12px; margin-top: 8px; margin-bottom: 10px">
@@ -41,8 +41,6 @@
 						<tr><td><img src="img/dateIcon.png" /></td><td style="padding-left: 14px"><%= event.getEventDate() %></td></tr>
 						<tr><td><img src="img/genreIcon.png" /></td><td style="padding-left: 15px"><%= event.getGenre() %></td></tr>
 					</table>
-                                        <input type="submit" value="Edit" name="edit" class="buttonAmber" style="margin-left:10px; float: left"/>
-                                        <input type="submit" value="Delete" name="delete" class="buttonGray" style="margin-left:5px; float: left"/>
                                         <div class="clear"></div>
 		</div>
 		<%
