@@ -7,9 +7,12 @@
 <body>
 	<div id="header">
 		<div id="logoHeader"></div>
-		<input id="searchField" type="text" value="Search... " onclick="document.getElementById('searchField').value='';" />
+		<form action="FrontController" method="GET" id="searchform">
+		<input type="hidden" name="site" value="search" />
+		<input id="searchField" name="searchTerm" type="text" value="Search... " onclick="document.getElementById('searchField').value='';" />
+		</form>
 		<div class="clear"></div>
-		<div id="searchButton">
+		<div id="searchButton" onclick="document.getElementById('searchform').submit()">
 		</div>
 		<div style="float: left">
 		<form>
@@ -65,7 +68,7 @@
 	</div>
 	<div class="clear"></div>
 	<div id="light" class="white_content" style="font-size:12px">
-		<img src="img/crossOrange.png" style="position:absolute;margin-left:280px; margin-top: 3px;cursor:pointer;" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none';"/>
+		<img src="img/crossOrange.png" style="position:absolute;margin-left:270px; margin-top: 3px;cursor:pointer;" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none';"/>
 		<h3 style="margin-bottom:15px; color:rgb(86, 85, 85)">Login</h3>
 		<hr style="margin-top:10px; margin-bottom:15px"/>
 		<form action="FrontController" method="GET" >
@@ -78,8 +81,8 @@
 			<input type="reset" class="buttonGray" value="Reset" style="margin-top:10px"/>	
 		</form>
 	</div>
-	<div id="light2" class="white_content" style="font-size:12px; height: 51%">
-		<img src="img/crossOrange.png" style="position:absolute;margin-left:280px; margin-top: 3px;cursor:pointer;" onclick="document.getElementById('light2').style.display='none';document.getElementById('fade').style.display='none';"/>
+	<div id="light2" class="white_content" style="font-size:12px; height: 400px">
+		<img src="img/crossOrange.png" style="position:absolute;margin-left:270px; margin-top: 3px;cursor:pointer;" onclick="document.getElementById('light2').style.display='none';document.getElementById('fade').style.display='none';"/>
 		<h3 style="margin-bottom:15px; color:rgb(86, 85, 85)">Register</h3>
 		<hr style="margin-top:10px; margin-bottom:15px"/>
 		<form action="FrontController" method="GET">
@@ -88,7 +91,11 @@
 			Password:<br/>
 			<input type="password" name="password" class="textField" style="margin-bottom:15px" />
 			Retype Password:<br/>
-			<input type="password" name="password2" class="textField" />
+			<input type="password" name="password2" class="textField" /><br/><br/>
+			Usertype:<br/><br/>
+			<label for="" style="float:left">Enduser</label><input type="checkbox" name="enduser" id="enduser" style="float:left" onclick="document.getElementById('organizer').checked = false" checked/>
+			<label for="" style="float:left; margin-left: 15px">Organizer</label><input type="checkbox" name="organizer" id="organizer" style="float:left" onclick="document.getElementById('enduser').checked = false"/><br/>
+			<div class="clear"></div>
 			<input type="hidden" value="register" name="site" />
 			<input type="submit" class="buttonAmber" value="Login" style="margin-top:10px"/>
 			<input type="reset" class="buttonGray" value="Reset" style="margin-top:10px"/>	
