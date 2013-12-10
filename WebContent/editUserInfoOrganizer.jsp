@@ -8,8 +8,10 @@
 <body>
 	<div id="header">
 		<div id="logoHeader"></div>
-		<input id="searchField" type="text" value="Search... " onclick="document.getElementById('searchField').value=''" />
-		<!-- <img src="img/profileIcon.png" style="float: left; margin-top: 8px; margin-left: 53px" />
+		<form action="FrontController" method="GET" id="searchform">
+		<input type="hidden" name="site" value="search" />
+		<input id="searchField" name="searchTerm" type="text" value="Search... " onclick="document.getElementById('searchField').value='';" />
+		</form>		<!-- <img src="img/profileIcon.png" style="float: left; margin-top: 8px; margin-left: 53px" />
 		<img src="img/pmIcon.png" style="float: left; margin-top: 8px; margin-left: 20px" />
 		<img src="img/favIcon.png" style="float: left; margin-top: 8px; margin-left: 20px" />
 		<img src="img/logoutIcon.png" style="float: left; margin-top: 8px; margin-left: 90px" /> -->
@@ -36,7 +38,7 @@
 		</ul>
 		</div>
 		<div class="clear"></div>
-		<div id="searchButton"></div>
+		<div id="searchButton" onclick="document.getElementById('searchform').submit()"></div>
 		
 	</div>
 	<div id="content">

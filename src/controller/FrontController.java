@@ -3,6 +3,9 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -138,14 +141,80 @@ public class FrontController extends HttpServlet {
    			RequestDispatcher rd = request.getRequestDispatcher("/event.jsp") ;
 	   		rd.forward(request, response);
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("search")){
-   			PrintWriter out = response.getWriter() ;
-   			out.append("<html><body>") ;
+   			ArrayList<Event> searchResult = new ArrayList<Event>() ;
    			for(Event event : EventDAO.getEventDAO().getEventList()){
-   				if(event.getEventName().contains((CharSequence)request.getParameter("searchTerm"))){
-   					out.append(event.toString()+"<br/>") ;
+   				if(event.getEventName().toLowerCase().contains((CharSequence)request.getParameter("searchTerm").toLowerCase())){
+   					searchResult.add(event) ;
    				}
    			}
-   			out.append("</body></html>") ;
+   			
+   			List<Event> filterResult = (ArrayList<Event>) searchResult.clone() ;
+   			
+   			if(request.getParameter("genre") != null && request.getParameter("genre").length() > 0){
+   				for(Event event : searchResult){
+   					if(!event.getGenre().contains((CharSequence)request.getParameter("genre").toLowerCase())){
+   						filterResult.remove(event) ;
+   					}
+   				}
+   				request.setAttribute("genre", request.getParameter("genre")) ;
+   			} else{
+   				request.setAttribute("genre", "") ;
+   			}
+   			
+   			if(request.getParameter("location") != null && request.getParameter("location").length() > 0){
+   				for(Event event : searchResult){
+   					if(!event.getEventPlace().contains((CharSequence)request.getParameter("location").toLowerCase())){
+   						filterResult.remove(event) ;
+   					}
+   				}
+   				request.setAttribute("location", request.getParameter("location")) ;
+   			} else{
+   				request.setAttribute("location", "") ;
+   			}
+   			
+   			if(request.getParameter("from") != null && request.getParameter("from").length() > 0){
+   				for(Event event : searchResult){
+   					try{
+   						SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+   	   				    Date date1 = format.parse(request.getParameter("from"));
+   	   				    Date date2 = format.parse(event.getEventDate());
+
+   	   					if(date2.compareTo(date1) <= 0){
+   	   						filterResult.remove(event) ;
+   	   					}
+   					} catch(Exception e){
+   						
+   					}
+   					
+   				}
+   				request.setAttribute("from", request.getParameter("from")) ;
+   			} else{
+   				request.setAttribute("from", "") ;
+   			}
+   			
+   			if(request.getParameter("to") != null && request.getParameter("to").length() > 0){
+   				for(Event event : searchResult){
+   					try{
+   						SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+   	   				    Date date1 = format.parse(request.getParameter("to"));
+   	   				    Date date2 = format.parse(event.getEventDate());
+
+   	   					if(date2.compareTo(date1) >= 0){
+   	   						filterResult.remove(event) ;
+   	   					}
+   					} catch(Exception e){
+   						
+   					}
+   				}
+   				request.setAttribute("to", request.getParameter("to")) ;
+   			} else{
+   				request.setAttribute("to", "") ;
+   			}
+   			
+   			request.setAttribute("searchResult", filterResult);
+   			request.setAttribute("searchTerm", request.getParameter("searchTerm")) ;
+   			RequestDispatcher rd = request.getRequestDispatcher("/search.jsp") ;
+	   		rd.forward(request, response);
    		}  else{
    			if(session == null){
    				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp") ;
