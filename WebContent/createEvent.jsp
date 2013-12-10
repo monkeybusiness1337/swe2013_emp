@@ -50,9 +50,9 @@
 	                            </div>
 	                            <span style="margin-left: 12px ; font-weight: 800; color: #565555;"><input type="text" name="titel" value="Titel" style="width:198px;color:#565555;font-weight:800;font-size:16px;border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: gray; border-style:dashed"/></span>
 						<table style="margin-left: 11px; height: 100px; color: #f0bb2d;  font-size: 12px; margin-top: 8px">
-							<tr><td><img src="img/locationIcon.png" style="margin-left: 1px"/></td><td style="padding-left: 15px"><input type="text" name="ort" value="Ort" style="border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/></td></tr>
-							<tr><td><img src="img/dateIcon.png" /></td><td style="padding-left: 14px"><input type="text" name="datum" value="Datum (dd-mm-yyyy)" style="border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/></td></tr>
-							<tr><td><img src="img/genreIcon.png" /></td><td style="padding-left: 15px"><input type="text" name="genre" value="Genre" style="border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/></td></tr>
+							<tr><td><img src="img/locationIcon.png" style="margin-left: 1px"/></td><td style="padding-left: 15px"><input type="text" name="ort" value="Ort" style="width: 160px; border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/></td></tr>
+							<tr><td><img src="img/dateIcon.png" /></td><td style="padding-left: 14px"><input type="text" name="datum" value="Datum (dd-mm-yyyy)" style="width: 160px; border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/></td></tr>
+							<tr><td><img src="img/genreIcon.png" /></td><td style="padding-left: 15px"><input type="text" name="genre" value="Genre" style="width: 160px; border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/></td></tr>
 						</table>
 				</div>
 				<div class="clear"></div>
@@ -76,8 +76,8 @@
 			<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #f0bb2d">Manage Events</p>
 			<div class="clear"></div>
                         <div id="submenuItemsManageEvents" style="display: none">
-                            <div style="width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Event erstellen</a></div>
-                            <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Events listen</a></div>
+                            <div style="width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='createEvent.jsp'>Event erstellen</a></div>
+                            <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top:15px"><a href='eventsListen.jsp'>Events listen</a></div>
                         </div>
                 </div>
 		<div class="sidebarItem">

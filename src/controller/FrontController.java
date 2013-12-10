@@ -92,7 +92,6 @@ public class FrontController extends HttpServlet {
 	   			} else{
 	   				response.getWriter().append("<html><body>Password too short!</body></html>") ;
 	   			}
-	   			
 	   		} else {
 	   			response.getWriter().append("<html><body>Passwords must match!</body></html>") ;
    			}
@@ -127,7 +126,17 @@ public class FrontController extends HttpServlet {
    			event.setDescription(request.getParameter("beschreibung").replace("\n", "<br/>")) ;
    			event.setGenre(request.getParameter("genre")) ;
    			event.setEventDate(request.getParameter("datum"));
+   			event.setOrganizer((Organizer)session);
    			EventDAO.getEventDAO().saveEvent(event);
+   			
+   			List<Event> events = new ArrayList<Event>() ;
+   			for(Event ev : EventDAO.getEventDAO().getEventList()){
+   				if(ev.getOrganizer() != null && ev.getOrganizer().getUserId().equals(session.getUserId())){
+   					events.add(ev) ;
+   				}
+   			}
+   			request.setAttribute("events", events);
+   			
    			RequestDispatcher rd = request.getRequestDispatcher("/eventsListen.jsp") ;
 	   		rd.forward(request, response);
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("showEvent")){
@@ -145,7 +154,7 @@ public class FrontController extends HttpServlet {
    		}  else if(request.getParameter("site") != null  && request.getParameter("site").equals("listOwnEvents")){
    			List<Event> events = new ArrayList<Event>() ;
    			for(Event event : EventDAO.getEventDAO().getEventList()){
-   				if(event.getOrganizer().getUserId().equals(session.getUserId())){
+   				if(event.getOrganizer() != null && event.getOrganizer().getUserId().equals(session.getUserId())){
    					events.add(event) ;
    				}
    			}
