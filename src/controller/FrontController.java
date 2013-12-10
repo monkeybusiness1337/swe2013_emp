@@ -146,7 +146,21 @@ public class FrontController extends HttpServlet {
    				}
    			}
    			out.append("</body></html>") ;
-   		}  
+   		}  else{
+   			if(session == null){
+   				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp") ;
+   				rd.forward(request, response);
+   			} else if (session instanceof Enduser){
+   				RequestDispatcher rd = request.getRequestDispatcher("/enduserLoggedIn.jsp") ;
+   				rd.forward(request, response);
+   			} else if (session instanceof Organizer){
+   				RequestDispatcher rd = request.getRequestDispatcher("/organizerLoggedIn.jsp") ;
+   				rd.forward(request, response);
+   			} else if(session instanceof Administrator){
+   				RequestDispatcher rd = request.getRequestDispatcher("/administratorLoggedIn.jsp") ;
+   				rd.forward(request, response);
+   			}
+   		}
 	}
 
 	/**
