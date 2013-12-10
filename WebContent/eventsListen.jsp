@@ -1,4 +1,5 @@
-<%@ page import="daos.EventDAO" %>
+<%@ page import="model.Event" %>
+<%@ page import="java.util.List" %>
 <html>
 <head>
 <title>EMP - Event Management Project</title>
@@ -43,7 +44,7 @@
 	<div id="content">
 	<%
 		int index = 0 ;
-		for(model.Event event : EventDAO.getEventDAO().getEventList()){
+		for(model.Event event : ((List<Event>)request.getAttribute("events"))){
 	%>
 		<div class="eventContainer" style="height:510px" onclick="document.location='FrontController?site=showEvent&event=<%= event.getEventId() %>'">
 					<img src="img/flyer.png" style="padding:11px"/>
@@ -119,8 +120,8 @@
 			<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #f0bb2d">Manage Events</p>
 			<div class="clear"></div>
                         <div id="submenuItemsManageEvents" style="display: none">
-                            <div style="width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Event erstellen</a></div>
-                            <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Events listen</a></div>
+                            <div style="width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='createEvent.jsp'>Event erstellen</a></div>
+                            <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='eventsListen.jsp'>Events listen</a></div>
                         </div>
                 </div>
 		<div class="sidebarItem">
