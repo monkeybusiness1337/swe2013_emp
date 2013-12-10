@@ -9,8 +9,8 @@
        This is the Software Engineering Project of Team Event Management..
     </description>
 	<welcome-file-list>
-	    <welcome-file>index.html</welcome-file>
-	  </welcome-file-list>
+	    <welcome-file>FrontController</welcome-file>
+	</welcome-file-list>
 	<servlet>
 		<servlet-name>FrontController</servlet-name>
 		<servlet-class>controller.FrontController</servlet-class>
