@@ -236,6 +236,21 @@ public class FrontController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(request.getParameter("action").equals("editOrganizerInfo")){
+			Organizer user  = (Organizer)UserDAO.getUserDAO().getUserbyUsername(request.getParameter("uname")) ;
+			user.setFirstName(request.getParameter("firstName"));
+			user.setLastName(request.getParameter("lastName"));
+			user.setEmail(request.getParameter("email"));
+			user.setTel(request.getParameter("tel"));
+			user.setBirthDate(request.getParameter("birthDate"));
+			user.setDescription(request.getParameter("description"));
+			UserDAO.getUserDAO().updateUser(user);
+
+			request.setAttribute("user", user);
+            RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoOrganizer.jsp") ;
+		   	rd.forward(request, response);
+			
+		} else{
 			 try {
 		            List<FileItem> fileItemsList = uploader.parseRequest(request);
 		            Iterator<FileItem> fileItemsIterator = fileItemsList.iterator();
@@ -267,7 +282,7 @@ public class FrontController extends HttpServlet {
 		            	user.setUserPicPath(userPicPath);
 		            UserDAO.getUserDAO().updateUser(user);
 	                request.setAttribute("user", user);
-	                RequestDispatcher rd = request.getRequestDispatcher("/editUserInfo.jsp") ;
+	                RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoEnduser.jsp") ;
 	 		   		rd.forward(request, response);
 	 		   		
 		        } catch (FileUploadException e) {
@@ -275,6 +290,6 @@ public class FrontController extends HttpServlet {
 		        } catch (Exception e) {
 		        	response.getWriter().append("<html><body>"+e.toString()+"</body></html>") ;
 		        }
-			 
    		} 
+	}
 }

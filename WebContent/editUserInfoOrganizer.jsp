@@ -42,8 +42,9 @@
 		
 	</div>
 	<div id="content">
-		<form method="POST" action="FrontController" enctype="multipart/form-data">
+		<form method="POST" action="FrontController">
 		<input type="hidden" name="site" value="editUserInfo"/>
+		<input type="hidden" name="action" value="editOrganizerInfo" />
 			<div id="eventLeft" style="float: left">
 				<div class="eventContainerNoHover" style="height: 310px; padding-top: 20px !important;">
 	                  <span style="margin-left: 12px ; font-weight: 800; color: #565555;"><input type="text" name="username" value="${user.userName}" disabled="disabled" style="width:198px;color:#565555;font-weight:800;font-size:16px;border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: gray; border-style:dashed"/></span>
@@ -55,10 +56,10 @@
 								<input type="text" name="lastName" value="${user.lastName}" style="font-size: 10pt !important; margin-top:5px !important;  margin-bottom: 10px !important ;width: 160px; border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/>
 								<br/>
 								<label for="" style="font-size:10pt; font-weight: bold">Contact Email:</label>
-								<input type="text" name="lastName" value="${user.email}" style="font-size: 10pt !important; margin-top:5px !important;  margin-bottom: 10px !important ;width: 160px; border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/>
+								<input type="text" name="email" value="${user.email}" style="font-size: 10pt !important; margin-top:5px !important;  margin-bottom: 10px !important ;width: 160px; border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/>
 								<br/>
 								<label for="" style="font-size:10pt; font-weight: bold">Contact Tel:</label>
-								<input type="text" name="lastName" value="${user.tel}" style="font-size: 10pt !important; margin-top:5px !important;  margin-bottom: 10px !important ;width: 160px; border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/>
+								<input type="text" name="tel" value="${user.tel}" style="font-size: 10pt !important; margin-top:5px !important;  margin-bottom: 10px !important ;width: 160px; border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/>
 								<br/>
 								<label for="" style="font-size:10pt; font-weight: bold">Birthdate:</label>
 								<input type="text" name="birthDate" value="${user.birthDate}" style="font-size: 10pt !important; margin-top:5px !important;  margin-bottom: 10px !important ;width: 160px; border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/>
@@ -73,7 +74,7 @@
 	                                <input type="submit" value="Speichern" class="buttonAmber" style="float: right; margin-top: -11px"/>
 	                                <div class="clear"></div>
 					<hr style="margin-bottom: 15px"/>
-	                                <textarea name="about" style="font-family: arial; line-height:19px; text-align:justify; max-width:510px; width:510px; min-height: 500px;border-style:dashed; background-color:transparent">${user.description}</textarea>
+	                                <textarea name="description" style="font-family: arial; line-height:19px; text-align:justify; max-width:510px; width:510px; min-height: 500px;border-style:dashed; background-color:transparent">${user.description}</textarea>
 				</div>
 	                </div>
 			<div class="clear"></div>
