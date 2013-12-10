@@ -62,11 +62,25 @@ public class FrontController extends HttpServlet {
 	   		if(request.getParameter("password").equals(request.getParameter("password2"))){
 	   			if(request.getParameter("password").length() > 5){
 		   			if(UserDAO.getUserDAO().getUserbyUsername(request.getParameter("username")) == null){	
-		   				Enduser newUser = new Enduser(request.getParameter("username"), request.getParameter("password")) ;
-		   	   			UserDAO.getUserDAO().saveUser(newUser);
-		   	   			request.setAttribute("user", newUser);
-		   	   			RequestDispatcher rd = request.getRequestDispatcher("/editUserInfo.jsp") ;
-		   		   		rd.forward(request, response);
+		   				User newUser =  null ;
+		   				if(request.getParameter("enduser") != null && request.getParameter("enduser").equals("on")){
+		   					newUser = new Enduser(request.getParameter("username"), request.getParameter("password")) ;
+			   				UserDAO.getUserDAO().saveUser(newUser);
+			   	   			request.setAttribute("user", newUser);
+			   	   			RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoEnduser.jsp") ;
+			   		   		rd.forward(request, response);
+		   				}
+		   				else if(request.getParameter("organizer") != null && request.getParameter("organizer").equals("on")){
+		   					newUser = new Organizer(request.getParameter("username"), request.getParameter("password")) ;
+		   					UserDAO.getUserDAO().saveUser(newUser);
+			   	   			request.setAttribute("user", newUser);
+			   	   			RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoOrganizer.jsp") ;
+			   		   		rd.forward(request, response);
+		   				}
+		   				else{
+		   					response.getWriter().append("<html><body>You have to choose an usertype!</body></html>") ;
+		   					return ;
+		   				}
 		   			} else {
 		   				response.getWriter().append("<html><body>User Already Exists!</body></html>") ;
 		   			}
@@ -98,7 +112,7 @@ public class FrontController extends HttpServlet {
    			}
    			
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("logout")){
-   			UserDAO.getUserDAO().saveUser(new Enduser(request.getParameter("username"), request.getParameter("password")));
+   			session = null ;
    			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp") ;
 	   		rd.forward(request, response);
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("createEvent")){

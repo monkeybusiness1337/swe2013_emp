@@ -5,12 +5,20 @@ import java.util.List;
 
 public class Organizer extends User {
 
-    private String email;
+	private static final long serialVersionUID = 1L;
+	private String email;
     private String tel;
+    private String description ;
     private List<Event> events;
 
     public Organizer() {
         events = new ArrayList<Event>() ;
+    }
+    
+    public Organizer(String username, String password){
+    	super() ;
+    	super.setUserName(username) ;
+    	super.setPassword(password) ;
     }
 
     public Organizer(String userId, String userName, String password, String firstName, String lastName, String registerDate, String birthDate) {
@@ -59,5 +67,13 @@ public class Organizer extends User {
         
         return returnString.toString() ;
     }*/
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
     
 }
