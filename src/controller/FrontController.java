@@ -151,7 +151,7 @@ public class FrontController extends HttpServlet {
    			request.setAttribute("event", match);
    			RequestDispatcher rd = request.getRequestDispatcher("/event.jsp") ;
 	   		rd.forward(request, response);
-   		}  else if(request.getParameter("site") != null  && request.getParameter("site").equals("listOwnEvents")){
+   		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("listOwnEvents")){
    			List<Event> events = new ArrayList<Event>() ;
    			for(Event event : EventDAO.getEventDAO().getEventList()){
    				if(event.getOrganizer() != null && event.getOrganizer().getUserId().equals(session.getUserId())){
@@ -161,6 +161,48 @@ public class FrontController extends HttpServlet {
    			request.setAttribute("events", events);
    			RequestDispatcher rd = request.getRequestDispatcher("/eventsListen.jsp") ;
 	   		rd.forward(request, response);
+   		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("editUserInformation")){
+   			if(session instanceof Enduser){
+   				session.setFirstName(request.getParameter("firstName"));
+   				session.setLastName(request.getParameter("lastName"));
+   				((Enduser) session).setEmail(request.getParameter("email"));
+   				session.setBirthDate(request.getParameter("birthDate")); 
+   				((Enduser) session).setAbout(request.getParameter("about"));
+   				UserDAO.getUserDAO().updateUser(session);
+   				request.setAttribute("user", session);
+   	   			RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoEnduser.jsp") ;
+   		   		rd.forward(request, response);
+   			} else if(session instanceof Organizer){
+   				session.setFirstName(request.getParameter("firstName"));
+   				session.setLastName(request.getParameter("lastName"));
+   				((Organizer) session).setEmail(request.getParameter("email"));
+   				((Organizer) session).setTel(request.getParameter("tel"));
+   				session.setBirthDate(request.getParameter("birthDate"));
+   				((Organizer) session).setDescription(request.getParameter("description"));
+   				UserDAO.getUserDAO().updateUser(session);
+   				request.setAttribute("user", session);
+   	   			RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoOrganizer.jsp") ;
+   		   		rd.forward(request, response);
+   			} else if(session instanceof Administrator){
+   				/** not implemented yet*/
+   			}
+   			
+   		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("deleteEvent")){
+   			if(session instanceof Organizer){
+   				EventDAO.getEventDAO().deleteEvent(request.getParameter("event"));
+   				List<Event> events = new ArrayList<Event>() ;
+   	   			for(Event event : EventDAO.getEventDAO().getEventList()){
+   	   				if(event.getOrganizer() != null && event.getOrganizer().getUserId().equals(session.getUserId())){
+   	   					events.add(event) ;
+   	   				}
+   	   			}
+   	   			request.setAttribute("events", events);
+   				RequestDispatcher rd = request.getRequestDispatcher("/eventsListen.jsp") ;
+   		   		rd.forward(request, response);
+   			} else if(session instanceof Administrator){
+   				response.getWriter().append("<html><body>You don't have the permission to delete Events!</body></html>") ;
+   			}
+   			
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("search")){
    			ArrayList<Event> searchResult = new ArrayList<Event>() ;
    			for(Event event : EventDAO.getEventDAO().getEventList()){

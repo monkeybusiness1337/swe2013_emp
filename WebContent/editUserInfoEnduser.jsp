@@ -102,7 +102,7 @@
 		<div class="sidebarItem">
 			<div style="background-color: #f5f5f5; width: 300px; height: 50px; margin-top: 10px ; ">
 				<img src="img/editIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
-				<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #f0bb2d">Edit User Information</p>
+				<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #f0bb2d"><a href="FrontController?site=editUserInformation" style="color: rgb(86, 85, 85);text-decoration:none">Edit User Information</a></p>
 				<div class="clear"></div>
 			</div>
 		</div>

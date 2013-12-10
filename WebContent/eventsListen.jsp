@@ -46,17 +46,17 @@
 		int index = 0 ;
 		for(model.Event event : ((List<Event>)request.getAttribute("events"))){
 	%>
-		<div class="eventContainer" style="height:510px" onclick="document.location='FrontController?site=showEvent&event=<%= event.getEventId() %>'">
-					<img src="img/flyer.png" style="padding:11px"/>
+		<div class="eventContainer" style="height:510px">
+					<img src="img/flyer.png" style="padding:11px" onclick="document.location='FrontController?site=showEvent&event=<%= event.getEventId() %>'"/>
 					<span style="margin-left: 12px ; font-weight: 800; color: #565555;"><%= event.getEventName() %></span>
 					<table style="margin-left: 11px; height: 100px; color: #f0bb2d;  font-size: 12px; margin-top: 8px; margin-bottom: 10px">
 						<tr><td><img src="img/locationIcon.png" style="margin-left: 1px"/></td><td style="padding-left: 15px"><%= event.getEventPlace() %></td></tr>
 						<tr><td><img src="img/dateIcon.png" /></td><td style="padding-left: 14px"><%= event.getEventDate() %></td></tr>
 						<tr><td><img src="img/genreIcon.png" /></td><td style="padding-left: 15px"><%= event.getGenre() %></td></tr>
 					</table>
-                                        <input type="submit" value="Edit" name="edit" class="buttonAmber" style="margin-left:10px; float: left"/>
-                                        <input type="submit" value="Delete" name="delete" class="buttonGray" style="margin-left:5px; float: left"/>
-                                        <div class="clear"></div>
+                 	<input type="button" value="Edit" name="edit" class="buttonAmber" style="margin-left:10px; float: left" onclick="document.location='FrontController?site=editEvent&event=<%= event.getEventId() %>'"/>
+                    <input type="button" value="Delete" name="delete" class="buttonGray" style="margin-left:5px; float: left" onclick="document.location='FrontController?site=deleteEvent&event=<%= event.getEventId() %>'"/>
+                   	<div class="clear"></div>
 		</div>
 		<%
 			if(index > 0 && index++%3 == 0)
@@ -87,7 +87,7 @@
 		<div class="sidebarItem">
 			<div style="background-color: #f5f5f5; width: 300px; height: 50px; margin-top: 10px ; ">
 				<img src="img/editIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
-				<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #565555">Edit User Information</p>
+				<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #565555"><a href="FrontController?site=editUserInformation" style="color: rgb(86, 85, 85);text-decoration:none">Edit User Information</a></p>
 				<div class="clear"></div>
 			</div>
 		</div>

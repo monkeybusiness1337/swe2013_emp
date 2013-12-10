@@ -152,7 +152,7 @@ public class EventDAO {
 	 * inperformant way of implementation
 	 * @see EventDAO
 	 */
-	public void deleteEvent(Event Event) throws IllegalArgumentException {
+	public void deleteEvent(Event event) throws IllegalArgumentException {
 		try {
 			/** get list of persistent Events */
 			ArrayList<Event> Events = (ArrayList<Event>) getEventList();
@@ -162,7 +162,47 @@ public class EventDAO {
 			/** iterate over Event list */
 			for (Event u : Events) {
 				/** compare by Eventname (Eventname = pk) */
-				if (u.getEventName().equals(Event.getEventName())) {
+				if (u.getEventId().equals(event.getEventId())) {
+					/** if found the right Event, save him and break the loop*/
+					match = u;
+					break;
+				}
+			}
+
+			/** remove Event from list */
+			Events.remove(Events.indexOf(match));
+			
+			/** create the streams needed to write the file */
+			file = new FileOutputStream(pathToFile);
+			buffer = new BufferedOutputStream(file);
+			output = new ObjectOutputStream(buffer);
+
+			/** write new Eventlist to file */
+			output.writeObject(Events);
+			/** flush it */
+			output.flush();
+			
+			/** and finally close the streams */
+			output.close();
+			buffer.close();
+			file.close();
+		} catch (IOException e) {
+			/** throw illegal argument exception */
+			throw new IllegalArgumentException("Error while deleting Event!!!" + e.getMessage()) ;
+		}
+	}
+	
+	public void deleteEvent(String eventId) throws IllegalArgumentException {
+		try {
+			/** get list of persistent Events */
+			ArrayList<Event> Events = (ArrayList<Event>) getEventList();
+			/** variable needed to save match */
+			Event match = null;
+			
+			/** iterate over Event list */
+			for (Event u : Events) {
+				/** compare by Eventname (Eventname = pk) */
+				if (u.getEventId().equals(eventId)) {
 					/** if found the right Event, save him and break the loop*/
 					match = u;
 					break;
