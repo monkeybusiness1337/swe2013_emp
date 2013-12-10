@@ -70,6 +70,7 @@ public class FrontController extends HttpServlet {
 		   					newUser = new Enduser(request.getParameter("username"), request.getParameter("password")) ;
 			   				UserDAO.getUserDAO().saveUser(newUser);
 			   	   			request.setAttribute("user", newUser);
+			   	   			session = newUser ;
 			   	   			RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoEnduser.jsp") ;
 			   		   		rd.forward(request, response);
 		   				}
@@ -77,6 +78,7 @@ public class FrontController extends HttpServlet {
 		   					newUser = new Organizer(request.getParameter("username"), request.getParameter("password")) ;
 		   					UserDAO.getUserDAO().saveUser(newUser);
 			   	   			request.setAttribute("user", newUser);
+			   	   			session = newUser ;
 			   	   			RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoOrganizer.jsp") ;
 			   		   		rd.forward(request, response);
 		   				}
@@ -139,6 +141,16 @@ public class FrontController extends HttpServlet {
    			response.getWriter().append("<html><body>"+match.toString()+"</body></html>") ;
    			request.setAttribute("event", match);
    			RequestDispatcher rd = request.getRequestDispatcher("/event.jsp") ;
+	   		rd.forward(request, response);
+   		}  else if(request.getParameter("site") != null  && request.getParameter("site").equals("listOwnEvents")){
+   			List<Event> events = new ArrayList<Event>() ;
+   			for(Event event : EventDAO.getEventDAO().getEventList()){
+   				if(event.getOrganizer().getUserId().equals(session.getUserId())){
+   					events.add(event) ;
+   				}
+   			}
+   			request.setAttribute("events", events);
+   			RequestDispatcher rd = request.getRequestDispatcher("/eventsListen.jsp") ;
 	   		rd.forward(request, response);
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("search")){
    			ArrayList<Event> searchResult = new ArrayList<Event>() ;
