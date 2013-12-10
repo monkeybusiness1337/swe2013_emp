@@ -18,8 +18,10 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import model.Administrator;
 import model.Enduser;
 import model.Event;
+import model.Organizer;
 import model.User;
 import daos.EventDAO;
 import daos.UserDAO;
@@ -79,8 +81,17 @@ public class FrontController extends HttpServlet {
    			User userToLogin = UserDAO.getUserDAO().getUserbyUsername(request.getParameter("username")) ;
    			if(userToLogin.getPassword().equals(request.getParameter("password"))){
    				session = userToLogin ;
-   				RequestDispatcher rd = request.getRequestDispatcher("/organizerLoggedIn.jsp") ;
-   	   			rd.forward(request, response);
+   				
+   				if(session instanceof Enduser){
+	   				RequestDispatcher rd = request.getRequestDispatcher("/enduserLoggedIn.jsp") ;
+	   				rd.forward(request, response);
+   				} else if(session instanceof Organizer){
+   					RequestDispatcher rd = request.getRequestDispatcher("/organizerLoggedIn.jsp") ;
+	   				rd.forward(request, response);
+   				} else if(session instanceof Administrator){
+   					RequestDispatcher rd = request.getRequestDispatcher("/administratorLoggedIn.jsp") ;
+	   				rd.forward(request, response);
+   				}
    			}
    			else{
    				response.getWriter().append("<html><body>Wrong user or password!</body></html>") ;
