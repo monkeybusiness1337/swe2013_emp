@@ -306,21 +306,7 @@ public class FrontController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("action").equals("editOrganizerInfo")){
-			Organizer user  = (Organizer)UserDAO.getUserDAO().getUserbyUsername(request.getParameter("uname")) ;
-			user.setFirstName(request.getParameter("firstName"));
-			user.setLastName(request.getParameter("lastName"));
-			user.setEmail(request.getParameter("email"));
-			user.setTel(request.getParameter("tel"));
-			user.setBirthDate(request.getParameter("birthDate"));
-			user.setDescription(request.getParameter("description"));
-			UserDAO.getUserDAO().updateUser(user);
-
-			request.setAttribute("user", user);
-            RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoOrganizer.jsp") ;
-		   	rd.forward(request, response);
-
-		} else{
+		if(request.getHeader("Referer").split("/")[4].equals("editUserInfoEnduser.jsp")){
 			 try {
 		            List<FileItem> fileItemsList = uploader.parseRequest(request);
 		            Iterator<FileItem> fileItemsIterator = fileItemsList.iterator();
@@ -360,6 +346,63 @@ public class FrontController extends HttpServlet {
 		        } catch (Exception e) {
 		        	response.getWriter().append("<html><body>"+e.toString()+"</body></html>") ;
 		        }
-   		}
+		} else if(request.getHeader("Referer").split("/")[4].equals("createEvent.jsp")){
+			try {
+				List<FileItem> fileItemsList = uploader.parseRequest(request);
+				Iterator<FileItem> fileItemsIterator = fileItemsList.iterator();
+				Event event = new Event();
+				String eventPicPath = "";
+				while (fileItemsIterator.hasNext()) {
+					FileItem fileItem = fileItemsIterator.next();
+					if (fileItem.isFormField()) {
+						if (fileItem.getFieldName().equals("titel")) {
+							event.setEventName(fileItem.getString());
+						} else if (fileItem.getFieldName().equals("ort")) {
+							event.setEventPlace(fileItem.getString());
+						} else if (fileItem.getFieldName().equals("beschreibung")) {
+							event.setDescription(fileItem.getString());
+						} else if (fileItem.getFieldName().equals("genre")) {
+							event.setGenre(fileItem.getString());
+						} else if (fileItem.getFieldName().equals("datum")) {
+							event.setEventDate(fileItem.getString());
+						}
+					} else {
+						if (fileItem.getFieldName().equals("fileName")) {
+							File file = new File(request.getRealPath("/") + "asd/"
+									+ fileItem.getName());
+							eventPicPath = "asd/" + fileItem.getName();
+							fileItem.write(file);
+						}
+					}
+				}
+				if (event.getPicturePath() == null)
+					event.setPicturePath(eventPicPath);
+				
+				event.setOrganizer((Organizer)session) ;
+				
+				EventDAO.getEventDAO().saveEvent(event);
+
+				List<Event> events = new ArrayList<Event>();
+				for (Event ev : EventDAO.getEventDAO().getEventList()) {
+					if (ev.getOrganizer() != null
+							&& ev.getOrganizer().getUserId()
+									.equals(session.getUserId())) {
+						events.add(ev);
+					}
+				}
+				request.setAttribute("events", events);
+
+				RequestDispatcher rd = request
+						.getRequestDispatcher("/eventsListen.jsp");
+				rd.forward(request, response);
+
+			} catch (FileUploadException e) {
+				response.getWriter().append(
+						"<html><body>" + e.toString() + "</body></html>");
+			} catch (Exception e) {
+				response.getWriter().append(
+						"<html><body>" + e.toString() + "</body></html>");
+			}
+		}
 	}
 }

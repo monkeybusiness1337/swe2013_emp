@@ -40,14 +40,15 @@
 		
 	</div>
 	<div id="content">
-		<form action="FrontController" method="GET">
+		<form method="POST" action="FrontController" enctype="multipart/form-data">
 			<input type="hidden" name="site" value="createEvent" />
 			<div id="eventLeft" style="float: left">
 				<div class="eventContainerNoHover">
-	                            <div style="background-color: #cecece; width: 90%; border: 1px dashed darkgray; margin: 0 auto; margin-top: 10px; margin-bottom: 15px;  height: 280px; cursor:pointer">
-					<img src="img/uploadIcon.png" style="padding:11px; margin-left: 45px; margin-top: 80px; width: 40%;-moz-opacity: 0.7; opacity: 0.7;filter: alpha(opacity = 70);"/>
-	                                <p style="font-size:12px; color: #f0bb2d; margin-left: 40px;">Upload Flyer Picture!</p>
-	                            </div>
+	                  <div class="uploadImgBox" onclick="document.getElementById('fileUpload').click();">
+	                		<img src="img/uploadIcon.png" style="padding:11px; margin-left: 45px; margin-top: 80px; width: 40%;-moz-opacity: 0.7; opacity: 0.7;filter: alpha(opacity = 70);"/>
+	                        <p style="font-size:12px; color: #f0bb2d; margin-left: 40px;">Upload User Picture!</p>
+	                         <input type="file" name="fileName" id="fileUpload">
+	                 </div>
 	                            <span style="margin-left: 12px ; font-weight: 800; color: #565555;"><input type="text" name="titel" value="Titel" style="width:198px;color:#565555;font-weight:800;font-size:16px;border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: gray; border-style:dashed"/></span>
 						<table style="margin-left: 11px; height: 100px; color: #f0bb2d;  font-size: 12px; margin-top: 8px">
 							<tr><td><img src="img/locationIcon.png" style="margin-left: 1px"/></td><td style="padding-left: 15px"><input type="text" name="ort" value="Ort" style="width: 160px; border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/></td></tr>
