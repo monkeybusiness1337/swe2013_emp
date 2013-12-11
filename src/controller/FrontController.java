@@ -78,6 +78,7 @@ public class FrontController extends HttpServlet {
 			   				UserDAO.getUserDAO().saveUser(newUser);
 			   	   			request.setAttribute("user", newUser);
 			   	   			session = newUser ;
+			   	   			request.getSession(true).setAttribute("session", session) ;
 			   	   			RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoEnduser.jsp") ;
 			   		   		rd.forward(request, response);
 		   				}
@@ -86,6 +87,7 @@ public class FrontController extends HttpServlet {
 		   					UserDAO.getUserDAO().saveUser(newUser);
 			   	   			request.setAttribute("user", newUser);
 			   	   			session = newUser ;
+			   	   			request.getSession(true).setAttribute("session", session) ;
 			   	   			RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoOrganizer.jsp") ;
 			   		   		rd.forward(request, response);
 		   				}
@@ -106,7 +108,7 @@ public class FrontController extends HttpServlet {
    			User userToLogin = UserDAO.getUserDAO().getUserbyUsername(request.getParameter("username")) ;
    			if(userToLogin.getPassword().equals(request.getParameter("password"))){
    				session = userToLogin ;
-
+   				request.getSession(true).setAttribute("session", session) ;
    				if(session instanceof Enduser){
 	   				RequestDispatcher rd = request.getRequestDispatcher("/enduserLoggedIn.jsp") ;
 	   				rd.forward(request, response);
@@ -124,6 +126,7 @@ public class FrontController extends HttpServlet {
 
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("logout")){
    			session = null ;
+   			request.getSession(true).setAttribute("session", null) ;
    			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp") ;
 	   		rd.forward(request, response);
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("createEvent")){

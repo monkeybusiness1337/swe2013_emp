@@ -5,24 +5,7 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-	<div id="header">
-		<div id="logoHeader"></div>
-		<form action="FrontController" method="GET" id="searchform">
-		<input type="hidden" name="site" value="search" />
-		<input id="searchField" name="searchTerm" type="text" value="Search... " onclick="document.getElementById('searchField').value='';" />
-		</form>
-		<div class="clear"></div>
-		<div id="searchButton" onclick="document.getElementById('searchform').submit()">
-		</div>
-		<div style="float: left">
-		<form>
-		<input type="button" class="buttonAmber" style="margin-left:920px; margin-top: -40px; float: left" value="Login" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'"/>
-		<input type="button" class="buttonGray" style="margin-left:1030px; margin-top: -40px; float: left" value="Register" onclick = "document.getElementById('light2').style.display='block';document.getElementById('fade').style.display='block'"/>
-		<div class="clear"></div>
-		</form>
-		</div>
-		<div class="clear"></div>
-	</div>
+	<jsp:include page="header.jsp" />
 	<div id="content">
 		<div id="welcomeContainer" style="">
 		<img src="img/cross_20.png" style="position:absolute;margin-left: 745px; margin-top: 3px;cursor:pointer;" onclick="document.getElementById('welcomeContainer').style.display='none';"/>
