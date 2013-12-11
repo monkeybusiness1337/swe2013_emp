@@ -46,40 +46,6 @@
 			<div class="clear"></div>
 		</form>
 	</div>
-	<div id="sidebarRight" style="margin-left: 50px; margin-top: 30px; border: 0px ; border-left-width:1px; border-style: solid; border-color: #bcbcbc; float: left; height: 100%; padding-left: 50px;">
-		<div class="sidebarItem" style="height: auto" onclick="if(document.getElementById('submenuItemsManageEvents').style.display=='none'){document.getElementById('submenuItemsManageEvents').style.display='block'}else{document.getElementById('submenuItemsManageEvents').style.display='none'}">
-			<img src="img/manageEventIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
-			<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #565555">Manage Events</p>
-			<div class="clear"></div>
-                        <div id="submenuItemsManageEvents" style="display: none">
-                            <div style="width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='createEvent.jsp'>Event erstellen</a></div>
-                            <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='FrontController?site=listOwnEvents'>Events listen</a></div>
-                        </div>
-                </div>
-		<div class="sidebarItem">
-			<img src="img/statisticsIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
-			<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #565555">Statistics</p>
-			<div class="clear"></div>
-		</div>
-		<div class="sidebarItem">
-			<div style="background-color: #f5f5f5; width: 300px; height: 50px; margin-top: 10px ; ">
-				<img src="img/editIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
-				<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #f0bb2d"><a href="FrontController?site=editUserInformation" style="color: rgb(86, 85, 85);text-decoration:none">Edit User Information</a></p>
-				<div class="clear"></div>
-			</div>
-		</div>
-                <div class="sidebarItem" style="height: auto" onclick="if(document.getElementById('submenuItemsPMs').style.display=='none'){document.getElementById('submenuItemsPMs').style.display='block'}else{document.getElementById('submenuItemsPMs').style.display='none'}">
-			<div style="background-color: #f5f5f5; width: 300px; height: 50px; margin-top: 10px ; ">
-				<img src="img/messageIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
-				<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #565555">Private Messages</p>
-				<div class="clear"></div>
-                        </div>
-                     <div id="submenuItemsPMs" style="display: none">
-                     <div style="width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Nachricht verfassen</a></div>
-                     <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Posteingang</a></div>
-                     </div>
-                </div>
-	</div>
-	<div class="clear"></div>
+	<jsp:include page="sidebar.jsp" />
 </body>
 </html>

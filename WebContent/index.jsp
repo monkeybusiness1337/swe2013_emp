@@ -33,21 +33,7 @@
 		<% } %>
 		<div class="clear"></div>
 	</div>
-	<div id="sidebarRight" style="margin-left: 40px; margin-top: 30px; border: 0px ; border-left-width:1px; border-style: solid; border-color: #bcbcbc; float: left; height: 100%;">
-		<div style="background-image: url(thumbUp.png); background-repeat: no-repeat; background-position: 290px 90px; width: 300px ; padding: 30px; margin-left: 40px; padding-bottom: 30px; background-color:#1abc9c; color: white; font-size: 25px; line-height: 1.4; margin-bottom:10px; padding-top: 25px">
-		Erstelle Veranstaltungen und teile sie mit deinen Freunden!
-		</div>
-		<div style="background-image: url(thumbUp.png); background-repeat: no-repeat; background-position: 290px 90px; width: 300px ; padding: 30px; padding-top: 25px; margin-left: 40px; padding-bottom: 30px; background-color:#16a085; color: white; font-size: 25px; line-height: 1.4; margin-bottom: 10px;">
-		Folge Freunden und bleibe so immer am Laufenden!
-		</div>
-		<div style="background-image: url(thumbUp.png); background-repeat: no-repeat; background-position: 290px 115px; width: 300px ; padding: 30px; padding-top: 25px; margin-left: 40px; padding-bottom: 30px; background-color:#2ecc71; color: white; font-size: 25px; line-height: 1.4; margin-bottom: 10px; height: 130px">
-		Suche und filtere Veranstaltungen nach verschiedenen Kriterien!
-		</div>
-		<div style="font-size: 11px; width: 340px;border:0;border-top:1px;border-style:solid; margin-left: 50px; border-color: #aba">
-			<p style="width: 160px; margin-left: 90px">Terms | Privacy | Cookies | Imprint</p>
-		</div>
-	</div>
-	<div class="clear"></div>
+	<jsp:include page="sidebar.jsp" />
 	<div id="light" class="white_content" style="font-size:12px">
 		<img src="img/crossOrange.png" style="position:absolute;margin-left:270px; margin-top: 3px;cursor:pointer;" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none';"/>
 		<h3 style="margin-bottom:15px; color:rgb(86, 85, 85)">Login</h3>
