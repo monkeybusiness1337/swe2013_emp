@@ -5,41 +5,7 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-	<div id="header">
-		<div id="logoHeader"></div>
-		<form action="FrontController" method="GET" id="searchform">
-		<input type="hidden" name="site" value="search" />
-		<input id="searchField" name="searchTerm" type="text" value="Search... " onclick="document.getElementById('searchField').value='';" />
-		</form>		<!-- <img src="img/profileIcon.png" style="float: left; margin-top: 8px; margin-left: 53px" />
-		<img src="img/pmIcon.png" style="float: left; margin-top: 8px; margin-left: 20px" />
-		<img src="img/favIcon.png" style="float: left; margin-top: 8px; margin-left: 20px" />
-		<img src="img/logoutIcon.png" style="float: left; margin-top: 8px; margin-left: 90px" /> -->
-		<div id="userMenuButton" style="background-image: none;background-size: 20%; background-repeat: no-repeat; background-position: 43px 30px ;width:50px;  position: absolute; z-index:199; margin-left: 940px; margin-top: 7px; padding: 3px; cursor: pointer" onclick="if(document.getElementById('userMenu').style.display=='block'){document.getElementById('userMenu').style.display='none';document.getElementById('userMenuButton').style.borderBottomWidth='1px';}else{document.getElementById('userMenu').style.display='block';document.getElementById('userMenuButton').style.borderBottomWidth='0px';}" onmouseover="document.getElementById('userMenuButton').style.backgroundImage='url(dropDownIcon.png)'" onmouseout="document.getElementById('userMenuButton').style.backgroundImage='none'">
-			<img src="img/unfug.jpg" style="width:70%; border-width:1px; border-style:dashed "/>
-		</div>
-		<div id="userMenu" style="display: none; width:200px; z-index: 0; position: absolute; background-color: #565555;box-shadow: 10px 10px 30px #888; margin-left: 940px; margin-top:50px;">
-		<ul>
-		<li>
-		<a href="#">Home</a>
-		</li>
-		<li>
-		<a href="#">Profile</a>
-		</li>
-		<li>
-		<a href="#">Veranstaltungssuche</a>
-		</li>
-		<li>
-		<a href="#">Eigne Veranstaltungen</a>
-		</li>
-		<li>
-		<a href="#">Logout</a>
-		</li>
-		</ul>
-		</div>
-		<div class="clear"></div>
-		<div id="searchButton" onclick="document.getElementById('searchform').submit()"></div>
-		
-	</div>
+<jsp:include page="header.jsp" />
 	<div id="content">
 		<%
 		int index = 0 ;

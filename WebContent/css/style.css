@@ -12,6 +12,8 @@ body{
 	width: 100%; 
 	height: 54px;
 	box-shadow: 1px 1px 10px #888;
+	margin-top: 0px ;
+	position: fixed ;
 }
 #logoHeader{
 	background-image: url(../img/logoNeu.png); 
@@ -23,6 +25,7 @@ body{
 	margin-left: 50px;
 	position: abolute ;
 	margin-top: 8px ;
+	cursor: pointer ;
 }
 
 .eventContainer{
@@ -119,6 +122,11 @@ body{
 #content{
 	float: left; 
 	width: 840px ;
+	margin-top: 50px ;
+}
+
+#sidebarRight{
+	margin-top: 80px !important ;
 }
 
 .sidebarItem{
