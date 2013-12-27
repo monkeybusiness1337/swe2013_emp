@@ -9,7 +9,7 @@
 	<jsp:include page="header.jsp" />
 	<div id="content">
 		<form method="POST" action="FrontController" enctype="multipart/form-data">
-		<input type="hidden" name="site" value="editUserInfo"/>
+		<input type="hidden" name="site" value="editUserInformation"/>
 			<div id="eventLeft" style="float: left">
 			<%
 				boolean haspic = ((Enduser)request.getAttribute("user")).getUserPicPath() != null ;

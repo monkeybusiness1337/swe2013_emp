@@ -8,9 +8,8 @@
 <body>
 	<jsp:include page="header.jsp" />
 	<div id="content">
-		<form method="POST" action="FrontController">
-		<input type="hidden" name="site" value="editUserInfo"/>
-		<input type="hidden" name="action" value="editOrganizerInfo" />
+		<form method="GET" action="FrontController">
+		<input type="hidden" name="site" value="editUserInformation"/>
 			<div id="eventLeft" style="float: left">
 				<div class="eventContainerNoHover" style="height: 310px; padding-top: 20px !important;">
 	                  <span style="margin-left: 12px ; font-weight: 800; color: #565555;"><input type="text" name="username" value="${user.userName}" disabled="disabled" style="width:198px;color:#565555;font-weight:800;font-size:16px;border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: gray; border-style:dashed"/></span>

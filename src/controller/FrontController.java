@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -310,50 +311,11 @@ public class FrontController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.print(request.getHeader("Referer")) ;
-		if(request.getHeader("Referer").split("/")[4].equals("FrontController?site=editUserInformation")){
-			
-			 try {
-		            List<FileItem> fileItemsList = uploader.parseRequest(request);
-		            Iterator<FileItem> fileItemsIterator = fileItemsList.iterator();
-	                Enduser user = new Enduser() ;
-	                String userPicPath = "" ;
-		            while(fileItemsIterator.hasNext()){
-		                FileItem fileItem = fileItemsIterator.next();
-		                if(fileItem.isFormField()){
-		                		if(fileItem.getFieldName().equals("uname")){
-		                			user  = (Enduser)UserDAO.getUserDAO().getUserbyUsername(fileItem.getString()) ;
-		                		} else if(fileItem.getFieldName().equals("firstName")){
-		                			user.setFirstName(fileItem.getString());
-		                		} else if(fileItem.getFieldName().equals("lastName")){
-		                			user.setLastName(fileItem.getString());
-		                		} else if(fileItem.getFieldName().equals("birthDate")){
-		                			user.setBirthDate(fileItem.getString());
-		                		}  else if(fileItem.getFieldName().equals("about")){
-		                			user.setAbout(fileItem.getString());
-		                		}
-		                } else{
-		                	if(fileItem.getFieldName().equals("fileName")){
-				                File file = new File(request.getRealPath("/")+"asd/"+fileItem.getName());
-				                //userPicPath = "asd/"+fileItem.getName() ;
-				                userPicPath = "asd/" + UUID.randomUUID().toString() ;
-				                fileItem.write(file);
-		                	}
-		                }
-		            }
-		            if(user.getUserPicPath() == null)
-		            	user.setUserPicPath(userPicPath);
-		            UserDAO.getUserDAO().updateUser(user);
-	                request.setAttribute("user", user);
-	                RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoEnduser.jsp") ;
-	 		   		rd.forward(request, response);
-
-		        } catch (FileUploadException e) {
-		        	response.getWriter().append("<html><body>"+e.toString()+"</body></html>") ;
-		        } catch (Exception e) {
-		        	response.getWriter().append("<html><body>"+e.toString()+"</body></html>") ;
-		        }
-		} else if(request.getHeader("Referer").split("/")[4].equals("createEvent.jsp")){
+		System.out.println(request.getHeader("Referer")) ;
+		System.out.println("------------") ;
+		System.out.println() ;
+		if(request.getHeader("Referer").split("/")[4].equals("createEvent.jsp")){
+		
 			try {
 				List<FileItem> fileItemsList = uploader.parseRequest(request);
 				Iterator<FileItem> fileItemsIterator = fileItemsList.iterator();
@@ -375,9 +337,10 @@ public class FrontController extends HttpServlet {
 						}
 					} else {
 						if (fileItem.getFieldName().equals("fileName")) {
+							String fileName = UUID.randomUUID().toString() + fileItem.getName() ;
 							File file = new File(request.getRealPath("/") + "asd/"
-									+ fileItem.getName());
-							eventPicPath = "asd/" + UUID.randomUUID().toString() ;
+									+ fileName);
+							eventPicPath = "asd/" + fileName ;
 							fileItem.write(file);
 						}
 					}
@@ -410,6 +373,50 @@ public class FrontController extends HttpServlet {
 				response.getWriter().append(
 						"<html><body>" + e.toString() + "</body></html>");
 			}
+		} else if(request.getHeader("Referer").split("/")[4].equals("editUserInfoEnduser.jsp")  
+				|| Arrays.asList(request.getHeader("Referer").split("/")[4].split("\\?")[1].split("&")).contains("site=register")){
+			
+			 try {
+		            List<FileItem> fileItemsList = uploader.parseRequest(request);
+		            Iterator<FileItem> fileItemsIterator = fileItemsList.iterator();
+	                Enduser user = new Enduser() ;
+	                String userPicPath = "" ;
+		            while(fileItemsIterator.hasNext()){
+		                FileItem fileItem = fileItemsIterator.next();
+		                if(fileItem.isFormField()){
+		                		if(fileItem.getFieldName().equals("uname")){
+		                			user  = (Enduser)UserDAO.getUserDAO().getUserbyUsername(fileItem.getString()) ;
+		                		} else if(fileItem.getFieldName().equals("firstName")){
+		                			user.setFirstName(fileItem.getString());
+		                		} else if(fileItem.getFieldName().equals("lastName")){
+		                			user.setLastName(fileItem.getString());
+		                		} else if(fileItem.getFieldName().equals("birthDate")){
+		                			user.setBirthDate(fileItem.getString());
+		                		}  else if(fileItem.getFieldName().equals("about")){
+		                			user.setAbout(fileItem.getString());
+		                		}
+		                } else{
+		                	if(fileItem.getFieldName().equals("fileName")){
+		                		String fileName = UUID.randomUUID().toString() + fileItem.getName() ;
+				                File file = new File(request.getRealPath("/")+"asd/"+fileName);
+				                //userPicPath = "asd/"+fileItem.getName() ;
+				                userPicPath = "asd/" + fileName ;
+				                fileItem.write(file);
+		                	}
+		                }
+		            }
+		            if(user.getUserPicPath() == null)
+		            	user.setUserPicPath(userPicPath);
+		            UserDAO.getUserDAO().updateUser(user);
+	                request.setAttribute("user", user);
+	                RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoEnduser.jsp") ;
+	 		   		rd.forward(request, response);
+
+		        } catch (FileUploadException e) {
+		        	response.getWriter().append("<html><body>"+e.toString()+"</body></html>") ;
+		        } catch (Exception e) {
+		        	response.getWriter().append("<html><body>"+e.toString()+"</body></html>") ;
+		        }
 		}
 	}
 }
