@@ -174,6 +174,21 @@ public class FrontController extends HttpServlet {
    			RequestDispatcher rd = request.getRequestDispatcher("/eventsListen.jsp") ;
 	   		rd.forward(request, response);
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("editUserInformation")){
+   			boolean noEdit = (request.getParameter("action") == null) ? false : request.getParameter("action").equals("noEdit") ;
+   			if(noEdit){
+   				System.out.print("asdasdasd") ;
+   				if(session instanceof Enduser){
+   					request.setAttribute("user", (Enduser) UserDAO.getUserDAO().getUserbyUsername(((Enduser)session).getUserName()) );
+   	   	   			RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoEnduser.jsp") ;
+   	   		   		rd.forward(request, response);
+   	   		   		return ;
+   				} else if(session instanceof Organizer){
+   					request.setAttribute("user", session);
+   	   	   			RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoOrganizer.jsp") ;
+   	   		   		rd.forward(request, response);
+   	   		   		return ;
+   				}
+   			}
    			if(session instanceof Enduser){
    				session.setFirstName(request.getParameter("firstName"));
    				session.setLastName(request.getParameter("lastName"));
@@ -181,6 +196,7 @@ public class FrontController extends HttpServlet {
    				session.setBirthDate(request.getParameter("birthDate"));
    				((Enduser) session).setAbout(request.getParameter("about"));
    				UserDAO.getUserDAO().updateUser(session);
+   				System.out.println(((Enduser)session).getUserPicPath()) ;
    				request.setAttribute("user", session);
    	   			RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoEnduser.jsp") ;
    		   		rd.forward(request, response);
@@ -290,7 +306,30 @@ public class FrontController extends HttpServlet {
    			request.setAttribute("searchTerm", request.getParameter("searchTerm")) ;
    			RequestDispatcher rd = request.getRequestDispatcher("/search.jsp") ;
 	   		rd.forward(request, response);
-   		}  else{
+   		} else if (request.getParameter("participateEvent") != null){
+   			Event match = null ;
+   			for(Event event : EventDAO.getEventDAO().getEventList()){
+   				if(event.getEventId().equals(request.getParameter("participateEvent"))){
+   					match = event ;
+   					break ;
+   				}
+   			}
+   			
+   			for(Enduser user : match.getParticipatedUsers()){
+   				if(user != null && user.getUserId().equals(session.getUserId())){
+   					response.getWriter().append(
+   							"<html><body>Already participated to this Event!</body></html>");
+   					return ;
+   				}
+   			}
+   			
+   			match.getParticipatedUsers().add((Enduser)session) ;
+   			EventDAO.getEventDAO().updateEvent(match);
+   			
+   			request.setAttribute("event", match);
+   			RequestDispatcher rd = request.getRequestDispatcher("/event.jsp") ;
+	   		rd.forward(request, response);
+   		} else{
    			if(session == null){
    				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp") ;
    				rd.forward(request, response);
@@ -373,7 +412,8 @@ public class FrontController extends HttpServlet {
 				response.getWriter().append(
 						"<html><body>" + e.toString() + "</body></html>");
 			}
-		} else if(request.getHeader("Referer").split("/")[4].equals("editUserInfoEnduser.jsp")  
+		} else if(request.getHeader("Referer").split("/")[4].contains("site=editUserInformation") 
+				|| request.getHeader("Referer").split("/")[4].equals("editUserInfoEnduser.jsp")  
 				|| Arrays.asList(request.getHeader("Referer").split("/")[4].split("\\?")[1].split("&")).contains("site=register")){
 			
 			 try {
@@ -409,6 +449,8 @@ public class FrontController extends HttpServlet {
 		            	user.setUserPicPath(userPicPath);
 		            UserDAO.getUserDAO().updateUser(user);
 	                request.setAttribute("user", user);
+	                System.out.println("blabla>>>") ;
+	                System.out.println( UserDAO.getUserDAO().getUserbyUsername(user.getUserName())) ;
 	                RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoEnduser.jsp") ;
 	 		   		rd.forward(request, response);
 
