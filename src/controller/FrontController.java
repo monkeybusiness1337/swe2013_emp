@@ -60,8 +60,8 @@ public class FrontController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-   		if(request.getParameter("site") != null && request.getParameter("site").equals("start")){
+		
+		if(request.getParameter("site") != null && request.getParameter("site").equals("start")){
    			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp") ;
    			rd.forward(request, response);
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("showEvents")){
@@ -329,7 +329,13 @@ public class FrontController extends HttpServlet {
    			request.setAttribute("event", match);
    			RequestDispatcher rd = request.getRequestDispatcher("/event.jsp") ;
 	   		rd.forward(request, response);
-   		} else{
+   		} else if(request.getRequestURI().split("/").length >= 3 && request.getRequestURI().split("/")[2].equals("user")){
+			request.setAttribute("user", (Enduser)UserDAO.getUserDAO().getUserbyUsername(request.getRequestURI().split("/")[3])) ;
+			System.out.print(request.getRequestURI().split("/")[3]) ;
+			RequestDispatcher rd = request.getRequestDispatcher("/user.jsp") ;
+   			rd.forward(request, response);
+			return ;
+		} else{
    			if(session == null){
    				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp") ;
    				rd.forward(request, response);
