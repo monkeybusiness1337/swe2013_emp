@@ -3,6 +3,7 @@ package model;
 public class PrivateMessage {
 
 	private Integer privateMessageId;
+	
 	private String sendDate;
 	private String subject;
 	private String body;
@@ -12,7 +13,7 @@ public class PrivateMessage {
 	public PrivateMessage() {
 
 	}
-
+	
 	public PrivateMessage(Integer privateMessageId, String sendDate,
 			String subject, String body, User sender, User receiver) {
 		this.privateMessageId = privateMessageId;

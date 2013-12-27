@@ -1,5 +1,7 @@
 <%@ page import="model.Event" %>
 <%@ page import="model.Comment" %>
+<%@ page import="model.Enduser" %>
+<%@ page import="java.util.List" %>
 
 <html>
 <head>
@@ -11,7 +13,8 @@
 	<div id="content">
 		<div id="eventLeft" style="float: left">
 			<div class="eventContainerNoHover">
-					<img src="img/flyer.png" style="padding:11px"/>
+					<!-- <img src="img/flyer.png" style="padding:11px"/> -->
+					<img src="${event.picturePath}" style="padding:11px; width: 210px"/>
 					<span style="margin-left: 12px ; font-weight: 800; color: #565555;">${event.eventName}</span>
 					<table style="margin-left: 11px; height: 100px; color: #f0bb2d;  font-size: 12px; margin-top: 8px">
 						<tr><td><img src="img/locationIcon.png" style="margin-left: 1px"/></td><td style="padding-left: 15px">${event.eventPlace}</td></tr>
@@ -23,6 +26,14 @@
 			<div class="teilnehmerContainer">
 				<h3 style="margin-top: -5px">Teilnehmer<span style="font-size:11px;color:#f0bb2d; font-weight: normal">&nbsp;&nbsp;(<%= ((Event)request.getAttribute("event")).getParticipatedUsers().size() %> going)</span></h3>
 				<hr style="margin-bottom: 15px"/>
+				
+				<% 
+				List<Enduser> allUsers = ((Event)request.getAttribute("event")).getParticipatedUsers();
+				for( model.Enduser forUser : allUsers )
+				{
+				%>
+				
+				
 				<div class="teilnehmerLine">
 					<div class="userItem" style="width: 27%; height: 80px; font-size:10px; float: left;">
 						<img src="img/unfug.jpg" style="width: 100%"/>
@@ -38,6 +49,9 @@
 					</div>
 					<div class="clear"></div>
 				</div>
+				
+				<% } %>
+				
 				<div class="teilnehmerLine">
 					<div class="userItem" style="width: 27%; height: 80px; font-size:10px; float: left;">
 						<img src="img/unfug.jpg" style="width: 100%"/>

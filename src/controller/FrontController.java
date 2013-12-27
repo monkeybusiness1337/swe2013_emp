@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -106,7 +107,7 @@ public class FrontController extends HttpServlet {
    			}
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("login")){
    			User userToLogin = UserDAO.getUserDAO().getUserbyUsername(request.getParameter("username")) ;
-   			if(userToLogin.getPassword().equals(request.getParameter("password"))){
+   				if(userToLogin != null && userToLogin.getPassword().equals(request.getParameter("password"))){
    				session = userToLogin ;
    				request.getSession(true).setAttribute("session", session) ;
    				if(session instanceof Enduser){
@@ -121,7 +122,7 @@ public class FrontController extends HttpServlet {
    				}
    			}
    			else{
-   				response.getWriter().append("<html><body>Wrong user or password!</body></html>") ;
+   				response.getWriter().append("<html><body>Wrong user or password or user does not exist!</body></html>") ;
    			}
 
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("logout")){
@@ -309,7 +310,9 @@ public class FrontController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getHeader("Referer").split("/")[4].equals("editUserInfoEnduser.jsp")){
+		System.out.print(request.getHeader("Referer")) ;
+		if(request.getHeader("Referer").split("/")[4].equals("FrontController?site=editUserInformation")){
+			
 			 try {
 		            List<FileItem> fileItemsList = uploader.parseRequest(request);
 		            Iterator<FileItem> fileItemsIterator = fileItemsList.iterator();
@@ -332,7 +335,8 @@ public class FrontController extends HttpServlet {
 		                } else{
 		                	if(fileItem.getFieldName().equals("fileName")){
 				                File file = new File(request.getRealPath("/")+"asd/"+fileItem.getName());
-				                userPicPath = "asd/"+fileItem.getName() ;
+				                //userPicPath = "asd/"+fileItem.getName() ;
+				                userPicPath = "asd/" + UUID.randomUUID().toString() ;
 				                fileItem.write(file);
 		                	}
 		                }
@@ -373,7 +377,7 @@ public class FrontController extends HttpServlet {
 						if (fileItem.getFieldName().equals("fileName")) {
 							File file = new File(request.getRealPath("/") + "asd/"
 									+ fileItem.getName());
-							eventPicPath = "asd/" + fileItem.getName();
+							eventPicPath = "asd/" + UUID.randomUUID().toString() ;
 							fileItem.write(file);
 						}
 					}
