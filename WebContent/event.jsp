@@ -35,7 +35,7 @@
 					if(user != null){
 						j++ ;
 				%>
-					<a href="user/<%=user.getUserName()%>">
+					<a href="user?userName=<%=user.getUserName()%>">
 						<div class="userItem" style="width: 27%; height: 80px; font-size:10px; float: left; margin-left:5px">
 							<img src="img/unfug.jpg" style="width: 100%"/>
 							<p style="margin-top:3px; font-weight: bold"><%=user.getUserName()%></p>

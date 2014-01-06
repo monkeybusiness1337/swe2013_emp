@@ -360,9 +360,14 @@ public class FrontController extends HttpServlet {
    			request.setAttribute("event", match);
    			RequestDispatcher rd = request.getRequestDispatcher("/event.jsp") ;
 	   		rd.forward(request, response);
-   		} else if(request.getRequestURI().split("/").length >= 3 && request.getRequestURI().split("/")[2].equals("user")){
-			request.setAttribute("user", (Enduser)UserDAO.getUserDAO().getUserbyUsername(request.getRequestURI().split("/")[3])) ;
-			System.out.print(request.getRequestURI().split("/")[3]) ;
+   		} else if(request.getRequestURI().split("/").length >= 3 && request.getRequestURI().split("/")[2].split("\\?")[0].equals("user")){
+   			Enduser user = (Enduser)UserDAO.getUserDAO().getUserbyUsername(request.getParameter("userName")) ;
+   			if(user == null){
+   				response.getWriter().append(
+							"<html><body>User not found..</body></html>");
+   				return ;
+   			}
+   			request.setAttribute("user", user) ;
 			RequestDispatcher rd = request.getRequestDispatcher("/user.jsp") ;
    			rd.forward(request, response);
 			return ;
