@@ -9,7 +9,7 @@ public class Enduser extends User {
 	public String userPicPath ;
 	
 	public Enduser(){
-		
+		super() ;
 	}
 	
 	public Enduser(String email) {

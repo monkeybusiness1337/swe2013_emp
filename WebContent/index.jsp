@@ -14,8 +14,9 @@
 		</div>
 		<%
 		int index = 0 ;
+		if(EventDAO.getEventDAO().getEventList() != null ){
 		for(model.Event event : EventDAO.getEventDAO().getEventList()){
-	%>
+		%>
 		<div class="eventContainer" style="height:450px" onclick="document.location='FrontController?site=showEvent&event=<%= event.getEventId() %>'">
 					<img src="<% if(event.getPicturePath() != null){ out.print( event.getPicturePath() ); } else{out.print( "img/flyer.png" ) ; } %>" style="width: 207px; padding:11px" onclick="document.location='FrontController?site=showEvent&event=<%= event.getEventId() %>'"/>
 					<span style="margin-left: 12px ; font-weight: 800; color: #565555;"><%= event.getEventName() %></span>
@@ -30,6 +31,8 @@
 			if(index > 0 && index++%3 == 0)
 				out.print("<div class='clear'></div>") ;
 		%>
+		<% } } else { %>
+		No Events created yet....
 		<% } %>
 		<div class="clear"></div>
 	</div>

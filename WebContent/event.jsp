@@ -131,7 +131,7 @@
 				<textarea name="commentBody" style="max-width: 510px; width:100%; height:50px;font-family:arial; padding:10px">blablablabla....</textarea>
 				<input type="submit" class="buttonAmber" style="margin-top:10px;" /></form>
 				<%
-					if(((Event)request.getAttribute("event")).getComments().size() == 0)
+					if( ((Event)request.getAttribute("event")).getComments() != null &&  (((Event)request.getAttribute("event")).getComments().size() == 0) )
 						out.print("<br/><br/>No comments avalaible...") ;
 					else{
 						for(Comment comment : ((Event)request.getAttribute("event")).getComments()){
@@ -143,7 +143,6 @@
 										<img src="img/unfug.jpg" style="width: 60%;" />
 										<p style="margin-top: 3px; font-weight: bold;">
 											<%= comment.getAutorName() %><br />
-											<span style="font-size: 8px; font-weight: normal">10 Followers</span>
 										</p>
 									</div>
 									<p style="width: 75%; text-align: justify; float: left; margin-top: 7px">

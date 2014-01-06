@@ -329,6 +329,7 @@ public class FrontController extends HttpServlet {
    					                          request.getParameter("commentBody"), 
    					                          "", 
    					                          (Enduser)session );
+   			
    			oldComments.add(NewComment);
    			match.setComments(oldComments);
    			EventDAO.getEventDAO().updateEvent(match);
