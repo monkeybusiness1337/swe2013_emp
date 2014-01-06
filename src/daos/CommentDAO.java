@@ -1,5 +1,7 @@
 package daos;
 
+import helpers.constants;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,7 +20,7 @@ import model.Comment;
 
 public class CommentDAO {
 
-    private static final String CommentFile = File.separator + "home" + File.separator + "unfug" + File.separator + "Dokumente" + File.separator + "comments.ser";
+    private static final String CommentFile = constants.SERSFOLDER + File.separator + "comments.ser";
     
     /**
 	 *  private variables needed to write to file 
@@ -165,7 +167,7 @@ public class CommentDAO {
 			throw new IllegalArgumentException("Error while deleting Comment!!!" + e.getMessage()) ;
 		}
 	}
-
+	
 	/**
 	 * Implementation of updateComment- Method defined by the Interface CommentDAO
 	 * bad way of implementation

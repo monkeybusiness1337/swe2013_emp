@@ -1,5 +1,7 @@
 package daos;
 
+import helpers.constants;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,9 +19,7 @@ import java.util.logging.Logger;
 import model.PrivateMessage;
 
 public class PrivateMessageDAO {
-	private static final String privateMessageFile = File.separator + "home"
-			+ File.separator + "unfug" + File.separator + "Dokumente"
-			+ File.separator + "pm.ser";
+	private static final String privateMessageFile = constants.SERSFOLDER + File.separator + "pm.ser";
 
 	/**
 	 * private variables needed to write to file

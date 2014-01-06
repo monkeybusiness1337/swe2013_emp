@@ -35,6 +35,7 @@ import model.Enduser;
 import model.Event;
 import model.Organizer;
 import model.User;
+import model.Comment;
 import daos.EventDAO;
 import daos.UserDAO;
 
@@ -230,7 +231,11 @@ public class FrontController extends HttpServlet {
    			} else if(session instanceof Administrator){
    				response.getWriter().append("<html><body>You don't have the permission to delete Events!</body></html>") ;
    			}
-
+   		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("listUsers")){
+   			List<User> listOfUsers = UserDAO.getUserDAO().getUserList();
+   			request.setAttribute("users", listOfUsers);
+   			RequestDispatcher rd = request.getRequestDispatcher("/usersListen.jsp");
+   			rd.forward(request,response);
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("search")){
    			ArrayList<Event> searchResult = new ArrayList<Event>() ;
    			for(Event event : EventDAO.getEventDAO().getEventList()){
@@ -305,6 +310,31 @@ public class FrontController extends HttpServlet {
    			request.setAttribute("searchResult", filterResult);
    			request.setAttribute("searchTerm", request.getParameter("searchTerm")) ;
    			RequestDispatcher rd = request.getRequestDispatcher("/search.jsp") ;
+	   		rd.forward(request, response);
+   		} else if (request.getParameter("postComment") != null){
+   			Event match = null ;
+   			for(Event event : EventDAO.getEventDAO().getEventList()){
+   				if(event.getEventId().equals(request.getParameter("postComment"))){
+   					match = event ;
+   					break ;
+   				}
+   			}
+   			if( match == null )
+   			{
+   				response.getWriter().append( "<html><body>Could not find event.</body></html>" );
+   				return;
+   			}
+   			List<Comment> oldComments = match.getComments();
+   			Comment NewComment = new Comment( oldComments.size() + 1, 
+   					                          request.getParameter("commentBody"), 
+   					                          "", 
+   					                          (Enduser)session );
+   			oldComments.add(NewComment);
+   			match.setComments(oldComments);
+   			EventDAO.getEventDAO().updateEvent(match);
+   			
+   			request.setAttribute("event", match);
+   			RequestDispatcher rd = request.getRequestDispatcher("/event.jsp") ;
 	   		rd.forward(request, response);
    		} else if (request.getParameter("participateEvent") != null){
    			Event match = null ;

@@ -6,6 +6,8 @@
 
 package daos;
 
+import helpers.constants;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import model.Organizer;
 import model.User;
 
@@ -32,7 +35,7 @@ import model.User;
  */
 public class UserDAO {
 
-    private static final String userFile = File.separator + "home" + File.separator + "unfug" + File.separator + "Dokumente" + File.separator + "users.ser";
+    private static final String userFile = constants.SERSFOLDER + File.separator + "users.ser";
 
     /**
 	 *  private variables needed to write to file

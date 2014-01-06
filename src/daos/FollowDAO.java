@@ -1,5 +1,7 @@
 package daos;
 
+import helpers.constants;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,7 +20,7 @@ import model.Follow;
 
 public class FollowDAO {
 
-    private static final String FollowFile = File.separator + "home" + File.separator + "unfug" + File.separator + "Dokumente" + File.separator + "follow.ser";
+    private static final String FollowFile = constants.SERSFOLDER + File.separator + "follow.ser";
     
     /**
 	 *  private variables needed to write to file 

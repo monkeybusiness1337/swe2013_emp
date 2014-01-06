@@ -1,6 +1,11 @@
 package model;
 
-public class Comment {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+public class Comment implements Serializable {
 
 	private Integer commentId;
 	private String commentBody;
@@ -23,7 +28,7 @@ public class Comment {
 	public Integer getCommentId() {
 		return commentId;
 	}
-
+	
 	public void setCommentId(Integer commentId) {
 		this.commentId = commentId;
 	}
@@ -48,6 +53,10 @@ public class Comment {
 		return autor;
 	}
 
+	public String getAutorName() {
+		return autor.getUserName();
+	}
+	
 	public void setAutor(User autor) {
 		this.autor = autor;
 	}
