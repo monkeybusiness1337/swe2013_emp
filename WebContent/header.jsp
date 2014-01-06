@@ -1,8 +1,9 @@
+<%@ page import="model.Organizer" %>
 <div id="header">
 		<div id="logoHeader" onclick="document.location='FrontController'"></div>
 		<form action="FrontController" method="GET" id="searchform">
 		<input type="hidden" name="site" value="search" />
-		<input id="searchField" name="searchTerm" type="text" value="Search... " onclick="document.getElementById('searchField').value='';" />
+		<input id="searchField" name="searchTerm" type="text" value="<%= request.getAttribute("searchTerm") != null ? request.getAttribute("searchTerm") : "Search..." %>" onclick="document.getElementById('searchField').value='';" />
 		</form>
 		<div class="clear"></div>
 		<div id="searchButton" onclick="document.getElementById('searchform').submit()">
@@ -21,17 +22,19 @@
 		<div id="userMenu" style="display: none; width:200px; z-index: 0; position: absolute; background-color: #565555;box-shadow: 10px 10px 30px #888; margin-left: 940px; margin-top:10px;">
 		<ul>
 		<li>
-		<a href="#">Home</a>
+		<a href="FrontController">Home</a>
 		</li>
 		<li>
-		<a href="#">Profile</a>
+		<a href="FrontController?site=editUserInformation&action=noEdit">Profile</a>
 		</li>
 		<li>
-		<a href="#">Veranstaltungssuche</a>
+		<a href="FrontController?site=search&searchTerm=">Veranstaltungssuche</a>
 		</li>
-		<li>
-		<a href="#">Eigne Veranstaltungen</a>
-		</li>
+		<% if (session.getAttribute("session") instanceof Organizer){ %>
+			<li>
+			<a href="FrontController?site=listOwnEvents">Eigne Veranstaltungen</a>
+			</li>
+		<% } %>
 		<li>
 		<a href="FrontController?site=logout">Logout</a>
 		</li>
