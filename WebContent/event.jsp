@@ -35,10 +35,12 @@
 					if(user != null){
 						j++ ;
 				%>
-					<div class="userItem" style="width: 27%; height: 80px; font-size:10px; float: left; margin-left:5px">
-						<img src="img/unfug.jpg" style="width: 100%"/>
-						<p style="margin-top:3px; font-weight: bold"><%=user.getUserName()%></p>
-					</div>
+					<a href="user/<%=user.getUserName()%>">
+						<div class="userItem" style="width: 27%; height: 80px; font-size:10px; float: left; margin-left:5px">
+							<img src="img/unfug.jpg" style="width: 100%"/>
+							<p style="margin-top:3px; font-weight: bold"><%=user.getUserName()%></p>
+						</div>
+					</a>
 				<%
 					}
 					if(j%3 == 0){
@@ -106,14 +108,16 @@
 		<div id="eventContainerRechts">
 			<div style="float: left; margin-left: 10px; background-color: #f5f5f5; width: 510px; min-height: 500px; margin-top: 30px; padding: 20px; text-align: justify; font-size:12px; line-height:19px">
 				<h3 style="margin-top: 0px; float: left; font-size:20px; color:#565555">Beschreibung</h3>
-				<form action="FrontController" method="GET" style="padding:0;margin:0">
-					<input type="hidden" name="shareEvent" value="${event.eventId}" />
-                	<input type="reset" value="Teilen" class="buttonGray" style="float: right; margin-top: -11px"/>
-                </form>
-                <form action="FrontController" method="GET" style="padding:0;margin:0">
-                	<input type="hidden" name="participateEvent" value="${event.eventId}" />
-                	<input type="submit" value="Teilnehmen" class="buttonAmber" style="float: right; margin-top: -11px"/>
-               	</form>
+				<% if (session.getAttribute("session") != null ) { %>
+					<form action="FrontController" method="GET" style="padding:0;margin:0">
+						<input type="hidden" name="shareEvent" value="${event.eventId}" />
+	                	<input type="reset" value="Teilen" class="buttonGray" style="float: right; margin-top: -11px"/>
+	                </form>
+	                <form action="FrontController" method="GET" style="padding:0;margin:0">
+	                	<input type="hidden" name="participateEvent" value="${event.eventId}" />
+	                	<input type="submit" value="Teilnehmen" class="buttonAmber" style="float: right; margin-top: -11px"/>
+	               	</form>
+	            <% } %>
                 <div class="clear"></div>
 				<hr style="margin-bottom: 15px"/>
 				${event.description}
