@@ -147,6 +147,7 @@ public class Event implements Serializable{
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
+    
     /*
     @Override
     public String toString(){

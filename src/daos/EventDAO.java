@@ -25,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Organizer;
 import model.Event;
+import helpers.constants;
 
 /**
  *
@@ -32,7 +33,7 @@ import model.Event;
  */
 public class EventDAO {
 
-    private static final String EventFile = File.separator + "home" + File.separator + "unfug" + File.separator + "Dokumente" + File.separator + "events.ser";
+    private static final String EventFile = constants.SERSFOLDER + File.separator + "events.ser";
 
     /**
 	 *  private variables needed to write to file
@@ -132,7 +133,19 @@ public class EventDAO {
 			output = new ObjectOutputStream(buffer);
 
 			/** add Event new Event to Event list */
-			Events.add(Event);
+			Event match = null;
+			for (Event u : Events) {
+				/** compare by Eventname (Eventname = pk) */
+				if (u.getEventId().equals(Event.getEventId())) {
+					/** if found the right Event, save him and break the loop*/
+					match = u;
+					break;
+				}
+			}
+			if( match == null )
+			  Events.add(Event);
+			else
+				throw new IllegalArgumentException( "Event already in file.");
 
 			/** write new Eventlist to file */
 			output.writeObject(Events);
@@ -170,9 +183,10 @@ public class EventDAO {
 					break;
 				}
 			}
-
+			
 			/** remove Event from list */
 			Events.remove(Events.indexOf(match));
+			
 
 			/** create the streams needed to write the file */
 			file = new FileOutputStream(pathToFile);

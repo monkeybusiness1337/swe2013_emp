@@ -122,8 +122,10 @@
 			<div style="float: left; margin-left: 10px; background-color: #f5f5f5; width: 510px; margin-top: 10px; font-size: 12px; padding: 20px;">
 				<h3 style="margin-top: -5px">Kommentare</h3>
 				<hr style="margin-bottom: 15px"/>
-				<textarea style="max-width: 510px; width:100%; height:50px;font-family:arial; padding:10px">blablablabla....</textarea>
-				<input type="submit" class="buttonAmber" style="margin-top:10px;" />
+				<form action="FrontController" method="GET">
+				<input type="hidden" name="postComment" value="${event.eventId}" />
+				<textarea name="commentBody" style="max-width: 510px; width:100%; height:50px;font-family:arial; padding:10px">blablablabla....</textarea>
+				<input type="submit" class="buttonAmber" style="margin-top:10px;" /></form>
 				<%
 					if(((Event)request.getAttribute("event")).getComments().size() == 0)
 						out.print("<br/><br/>No comments avalaible...") ;
@@ -136,7 +138,7 @@
 										style="margin-top: 10px; margin-left: 15px; float: left; width: 20%">
 										<img src="img/unfug.jpg" style="width: 60%;" />
 										<p style="margin-top: 3px; font-weight: bold;">
-											<%= comment.getAutor() %><br />
+											<%= comment.getAutorName() %><br />
 											<span style="font-size: 8px; font-weight: normal">10 Followers</span>
 										</p>
 									</div>

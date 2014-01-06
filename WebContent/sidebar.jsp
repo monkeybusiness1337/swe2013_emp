@@ -36,6 +36,13 @@
                      <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Posteingang</a></div>
                      </div>
                 </div>
+                	      <div class="sidebarItem">
+				<div style="background-color: #f5f5f5; width: 300px; height: 50px; margin-top: 10px ; ">
+					<img src="img/manageUsersIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
+					<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #f0bb2d"><a href="FrontController?site=listUsers" style="color: rgb(86, 85, 85);text-decoration:none">View all users</a></p>
+					<div class="clear"></div>
+				</div>
+			</div>
 	</div>
 	<div class="clear"></div>
 <% } else if(session.getAttribute("session") instanceof Organizer ) {%>
@@ -94,6 +101,13 @@
 	                     <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Posteingang</a></div>
 	                     </div>
 	                </div>
+	      <div class="sidebarItem">
+				<div style="background-color: #f5f5f5; width: 300px; height: 50px; margin-top: 10px ; ">
+					<img src="img/manageUsersIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
+					<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #f0bb2d"><a href="FrontController?site=listUsers" style="color: rgb(86, 85, 85);text-decoration:none">View all users</a></p>
+					<div class="clear"></div>
+				</div>
+			</div>
 		</div>
 	<div class="clear"></div>
 <% } else if(session.getAttribute("session") == null) { %>
@@ -112,3 +126,4 @@
 		</div>
 	</div>
 <% } %>
+	<div class="clear"></div>
