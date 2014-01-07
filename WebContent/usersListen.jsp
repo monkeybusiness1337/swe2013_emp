@@ -1,5 +1,6 @@
 <%@ page import="model.User"%>
 <%@ page import="model.Enduser"%>
+<%@ page import="model.Follow" %>
 <%@ page import="java.util.List"%>
 <html>
 <head>
@@ -35,8 +36,26 @@
 					<td style="padding-left: 15px"><%=user.getBirthDate()%></td>
 				</tr>
 			</table>
-			<input type="button" value="Follow" name="edit" class="buttonAmber"
-				style="float: left; margin-left: 10px;" /> <input type="button"
+			<%
+			boolean doesFollow = false;
+					String theId = null;
+					User thisUser = (User)request.getAttribute("thisUser");
+					for( model.Follow fol : ((List<Follow>)request.getAttribute("follows")))
+					{
+						if( fol.getFollower().equals(thisUser.getUserId() ) && fol.getFollowed().equals(user.getUserId()) ) 
+						{
+						  doesFollow = true;
+						  break;
+						}
+					}
+					if( !doesFollow )
+					{
+					%>
+                 	<input type="button" value="Follow" name="follow" class="buttonAmber" style="margin-left:10px; float: left" onclick="document.location='FrontController?site=followUser&who=<%= thisUser.getUserId() %>&whom=<%= user.getUserId() %>'"/>
+                   	<% } else { %>
+                   	<input type="button" value="Unfollow" name="unfollow" class="buttonAmber" style="margin-left:10px; float: left" onclick="document.location='FrontController?site=unfollowUser&who=<%= thisUser.getUserId() %>&whom=<%= user.getUserId() %>'"/>
+                   	<%} %>
+			 <input type="button"
 				value="View" name="edit" class="buttonGray"
 				style="float: left; margin-left: 10px;"
 				onclick="window.location.href='user?userName=<%=user.getUserName()%>'" />

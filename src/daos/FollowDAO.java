@@ -45,7 +45,7 @@ public class FollowDAO {
 	 * @param pathToFile
 	 * @throws IOException
 	 */
-	private FollowDAO(String pathToFile) throws IOException {
+	public FollowDAO(String pathToFile) throws IOException {
 		this.pathToFile = pathToFile;
 	}
         
@@ -86,7 +86,31 @@ public class FollowDAO {
 
 	}
 
-	
+	public void createOutputFile()
+	{
+		try {
+			ArrayList<Follow> follows = new ArrayList<Follow>();
+			
+			/** creating streams for writing to file */
+			file = new FileOutputStream(pathToFile);
+			buffer = new BufferedOutputStream(file);
+			output = new ObjectOutputStream(buffer);
+
+			/** write new Follow-list to file */
+			output.writeObject( follows );
+			/** flush it */
+			output.flush();
+			
+			/** and finally close the streams */
+			output.close();
+			buffer.close();
+			file.close();
+		}
+	    catch (Exception e) {
+		/** throw illegal argument exception */
+		throw new IllegalArgumentException("Error while creating file. " + e.getMessage()) ;
+	    }
+	}    
 
 	/**
 	 * Implementation of saveFollow- Method defined by the Interface FollowDAO
@@ -97,7 +121,6 @@ public class FollowDAO {
 		try {
 			/** get list of persistent Follows */
 			ArrayList<Follow> follows = (ArrayList<Follow>) getFollowList();
-			
 			/** creating streams for writing to file */
 			file = new FileOutputStream(pathToFile);
 			buffer = new BufferedOutputStream(file);
@@ -135,7 +158,8 @@ public class FollowDAO {
 			
 			/** iterate over Follow list */
 			for (Follow u : follows) {
-				if (u.getFollowId() == follow.getFollowId()) {
+				if( u.getFollower().equals(follow.getFollower()) && u.getFollowed().equals(follow.getFollowed()) )
+				{
 					match = u;
 					break;
 				}

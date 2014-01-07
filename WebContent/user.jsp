@@ -1,4 +1,7 @@
+<%@ page import="model.User" %>
 <%@ page import="model.Enduser" %>
+<%@ page import="model.Follow" %>
+<%@ page import="java.util.List"%>
 
 <html>
 <head>
@@ -36,9 +39,27 @@
 			<div id="eventContainerRechts">
 				<div style="float: left; margin-left: 10px; background-color: #f5f5f5; width: 510px; min-height: 500px; margin-top: 30px; padding: 20px; text-align: justify; font-size:12px; line-height:19px">
 					<h3 style="margin-top: 0px; float: left; font-size:20px; color:#565555">About</h3>
-	                                <% if (session.getAttribute("session") != null) { %>
-	                                <input type="submit" value="Folgen" class="buttonGray" style="float: right; margin-top: -11px"/>
-	                                <% } %>
+	                                <% if (session.getAttribute("session") != null) { 
+	                           boolean doesFollow = false;
+					User user = (User)request.getAttribute("user");
+					User thisUser = (User)session.getAttribute("session");
+					if( thisUser != null )
+					{
+					for( model.Follow fol : ((List<Follow>)request.getAttribute("follows")))
+					{
+						if( fol.getFollower().equals(thisUser.getUserId() ) && fol.getFollowed().equals(user.getUserId()) ) 
+						{
+						  doesFollow = true;
+						  break;
+						}
+					}
+					if( !doesFollow )
+					{
+					%>
+                 	<input type="button" value="Follow" name="follow" class="buttonAmber" style="margin-left:10px; float: left" onclick="document.location='FrontController?site=followUser&who=<%= thisUser.getUserId() %>&whom=<%= user.getUserId() %>'"/>
+                   	<% } else { %>
+                   	<input type="button" value="Unfollow" name="unfollow" class="buttonAmber" style="margin-left:10px; float: left" onclick="document.location='FrontController?site=unfollowUser&who=<%= thisUser.getUserId() %>&whom=<%= user.getUserId() %>'"/>
+                   	<% }}} %>
 	                                <div class="clear"></div>
 					<hr style="margin-bottom: 15px"/>
 	                                <textarea disabled="disabled" name="about" style="color: rgb(86, 85, 85) !important ; border: none !important ; font-family: arial; line-height:19px; text-align:justify; max-width:510px; width:510px; min-height: 500px;border-style:dashed; background-color:transparent">${user.about}</textarea>

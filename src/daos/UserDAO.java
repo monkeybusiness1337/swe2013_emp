@@ -29,6 +29,8 @@ import java.util.logging.Logger;
 import model.Organizer;
 import model.User;
 
+
+
 /**
  *
  * @author unfug
@@ -73,6 +75,15 @@ public class UserDAO {
             return null ;
         }
 
+        public User getUserbyUserId(String UserId) {
+        	/** iterate over list of persistent users */
+        	for (User user : getUserList())
+        		if (user.getUserId().equals(UserId))
+        			return user;
+        	/** if the user wasn't found return null */
+        	return null;
+        }
+        
 	/**
 	 * Implementation of getUserList- Method defined by the Interface UserDAO
 	 *

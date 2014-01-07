@@ -35,8 +35,10 @@ import model.Enduser;
 import model.Event;
 import model.Organizer;
 import model.User;
+import model.Follow;
 import model.Comment;
 import daos.EventDAO;
+import daos.FollowDAO;
 import daos.UserDAO;
 
 /**
@@ -164,6 +166,111 @@ public class FrontController extends HttpServlet {
    			request.setAttribute("event", match);
    			RequestDispatcher rd = request.getRequestDispatcher("/event.jsp") ;
 	   		rd.forward(request, response);
+   		}
+   		else if(request.getParameter("site") != null && request.getParameter("site").equals("followUser")){
+   			if(request.getParameter("whom") == null )
+   			{
+   				response.getWriter().append("<html><body>User to follow was not specified.</body></html>");
+   				return;
+   			}
+   			User userToFollow = UserDAO.getUserDAO().getUserbyUserId(request.getParameter("whom"));
+   			if(request.getParameter("who") == null )
+   			{
+   				response.getWriter().append("<html><body>User who wants to follow not specified.</body></html>");
+   				return;
+   			}
+   			User userWhoFollows = UserDAO.getUserDAO().getUserbyUserId(request.getParameter("who"));
+   			if( userToFollow == null )
+   			{
+   				response.getWriter().append("<html><body>User to follow not found in storage.</body></html>");
+   				return;
+   			}
+   			if( userWhoFollows == null )
+   			{
+   				response.getWriter().append("<html><body>User who wants to follow not found in storage.</body></html>");
+   				return;
+   			}
+   			List<Follow> listFollows = FollowDAO.getFollowDAO().getFollowList();
+   			for( Follow fol : listFollows )
+			{
+				if( fol.getFollower().equals(userWhoFollows.getUserId()) && fol.getFollowed().equals(userToFollow.getUserId()) ) 
+				{
+				  response.getWriter().append("<html><body>This user does already follow the other user.</body></html>");
+				  return;
+				}
+			}
+   			Follow newFollow = new Follow( userWhoFollows.getUserId(), userToFollow.getUserId());
+   			FollowDAO.getFollowDAO().saveFollow(newFollow);
+   			listFollows = FollowDAO.getFollowDAO().getFollowList();
+   		    List<User> listOfUsers = UserDAO.getUserDAO().getUserList();
+   		    request.setAttribute("thisUser", ((User)session));
+   			request.setAttribute("users", listOfUsers);
+   			request.setAttribute("follows", listFollows);
+   			RequestDispatcher rd = request.getRequestDispatcher("/usersListen.jsp");
+   			rd.forward(request, response);
+   		    } else if(request.getParameter("site") != null && request.getParameter("site").equals("unfollowUser")){
+   	   			if(request.getParameter("whom") == null )
+   	   			{
+   	   				response.getWriter().append("<html><body>User to unfollow was not specified.</body></html>");
+   	   				return;
+   	   			}
+   	   			User userToFollow = UserDAO.getUserDAO().getUserbyUserId(request.getParameter("whom"));
+   	   			if(request.getParameter("who") == null )
+   	   			{
+   	   				response.getWriter().append("<html><body>User who wants to unfollow not specified.</body></html>");
+   	   				return;
+   	   			}
+   	   			User userWhoFollows = UserDAO.getUserDAO().getUserbyUserId(request.getParameter("who"));
+   	   			if( userToFollow == null )
+   	   			{
+   	   				response.getWriter().append("<html><body>User to unfollow not found in storage.</body></html>");
+   	   				return;
+   	   			}
+   	   			if( userWhoFollows == null )
+   	   			{
+   	   				response.getWriter().append("<html><body>User who wants to unfollow not found in storage.</body></html>");
+   	   				return;
+   	   			}
+   	   			List<Follow> listFollows = FollowDAO.getFollowDAO().getFollowList();
+   	   			boolean doesFollow = false;
+   	   			for( Follow fol : listFollows )
+   				{
+   					if( fol.getFollower().equals(userWhoFollows.getUserId()) && fol.getFollowed().equals(userToFollow.getUserId()) ) 
+   					{
+   					  doesFollow = true;
+   					  break;
+   					}
+   				}
+   	   			if(!doesFollow)
+   	   			{
+   	   				response.getWriter().append("<html><body>User does not follow.</body></html>");
+   	   				return;
+   	   			}
+   	   			Follow deleteFollow = new Follow( userWhoFollows.getUserId(), userToFollow.getUserId());
+   	   			FollowDAO.getFollowDAO().deleteFollow(deleteFollow);
+   	   			listFollows = FollowDAO.getFollowDAO().getFollowList();
+   	   		    List<User> listOfUsers = UserDAO.getUserDAO().getUserList();
+   	   		    request.setAttribute("thisUser", ((User)session));
+   	   			request.setAttribute("users", listOfUsers);
+   	   			request.setAttribute("follows", listFollows);
+   	   			RequestDispatcher rd = request.getRequestDispatcher("/usersListen.jsp");
+   	   			rd.forward(request, response);
+   		    }
+	   		else if(request.getParameter("site") != null  && request.getParameter("site").equals("listFollowedEvents")){
+	   			List<Event> events = new ArrayList<Event>();
+	   			
+	   			List<Follow> FollowList = FollowDAO.getFollowDAO().getFollowList();
+	   			
+	   			for(Event event : EventDAO.getEventDAO().getEventList()){
+	   				/*if( 
+{
+	   					events.add(event) ;
+	   				}*/
+	   			}
+	   			request.setAttribute("events", events);
+	   			RequestDispatcher rd = request.getRequestDispatcher("/eventsListen.jsp") ;
+		   		rd.forward(request, response);
+   		
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("listOwnEvents")){
    			List<Event> events = new ArrayList<Event>() ;
    			for(Event event : EventDAO.getEventDAO().getEventList()){
@@ -234,6 +341,9 @@ public class FrontController extends HttpServlet {
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("listUsers")){
    			List<User> listOfUsers = UserDAO.getUserDAO().getUserList();
    			request.setAttribute("users", listOfUsers);
+	   		List<Follow> listFollows = FollowDAO.getFollowDAO().getFollowList();
+   			request.setAttribute("thisUser", ((User)session));
+   			request.setAttribute("follows", listFollows);
    			RequestDispatcher rd = request.getRequestDispatcher("/usersListen.jsp");
    			rd.forward(request,response);
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("search")){
@@ -368,6 +478,14 @@ public class FrontController extends HttpServlet {
    				return ;
    			}
    			request.setAttribute("user", user) ;
+	   	    List<Follow> listFollows = FollowDAO.getFollowDAO().getFollowList();
+   	   		List<User> listOfUsers = UserDAO.getUserDAO().getUserList();
+   	   		if( session != null )
+   	   		  request.setAttribute("thisUser", ((User)session));
+   	   		else
+   	   		  request.setAttribute("thisUser", null );
+   	   		request.setAttribute("users", listOfUsers);
+   	   		request.setAttribute("follows", listFollows);
 			RequestDispatcher rd = request.getRequestDispatcher("/user.jsp") ;
    			rd.forward(request, response);
 			return ;
