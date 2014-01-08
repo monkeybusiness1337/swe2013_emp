@@ -28,12 +28,12 @@
                 <div class="sidebarItem" style="height: auto" onclick="if(document.getElementById('submenuItemsPMs').style.display=='none'){document.getElementById('submenuItemsPMs').style.display='block'}else{document.getElementById('submenuItemsPMs').style.display='none'}">
 			<div style="background-color: #f5f5f5; width: 300px; height: 50px; margin-top: 10px ; ">
 				<img src="img/messageIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
-				<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #565555">Private Messages<span style="font-size:10px;color:red; margin-left: 15px;">3 new messages!</span></p>
+				<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #565555">Private Messages</p>
 				<div class="clear"></div>
                         </div>
                      <div id="submenuItemsPMs" style="display: none">
-                     <div style="width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Nachricht verfassen</a></div>
-                     <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Posteingang</a></div>
+                     <div style="width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='FrontController?site=writeMessage'>Nachricht verfassen</a></div>
+                     <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='FrontController?site=eingang'>Posteingang</a></div>
                      </div>
                 </div>
                 	      <div class="sidebarItem">
@@ -75,9 +75,9 @@
 					<div class="clear"></div>
 	                        </div>
 	                     <div id="submenuItemsPMs" style="display: none">
-	                     <div style="width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Nachricht verfassen</a></div>
-	                     <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Posteingang</a></div>
-	                     </div>
+	                     <div style="width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='FrontController?site=writeMessage'>Nachricht verfassen</a></div>
+<div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='FrontController?site=eingang'>Posteingang</a></div>
+</div>
 	                </div>
 	</div>
 	<div class="clear"></div>
@@ -93,12 +93,11 @@
 	                <div class="sidebarItem" style="height: auto" onclick="if(document.getElementById('submenuItemsPMs').style.display=='none'){document.getElementById('submenuItemsPMs').style.display='block'}else{document.getElementById('submenuItemsPMs').style.display='none'}">
 				<div style="background-color: #f5f5f5; width: 300px; height: 50px; margin-top: 10px ; ">
 					<img src="img/messageIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
-					<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #565555">Private Messages<span style="font-size:10px;color:red; margin-left: 15px;">3 new messages!</span></p>
+					<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #565555">Private Messages</p>
 					<div class="clear"></div>
 	                        </div>
-	                     <div id="submenuItemsPMs" style="display: none">
-	                     <div style="width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Nachricht verfassen</a></div>
-	                     <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Posteingang</a></div>
+	                     <div id="submenuItemsPMs" style="display: none"><div style="width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='FrontController?site=writeMessage'>Nachricht verfassen</a></div>
+<div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='FrontController?site=eingang'>Posteingang</a></div>
 	                     </div>
 	                </div>
 	      <div class="sidebarItem">

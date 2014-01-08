@@ -37,9 +37,11 @@ import model.Organizer;
 import model.User;
 import model.Follow;
 import model.Comment;
+import model.PrivateMessage;
 import daos.EventDAO;
 import daos.FollowDAO;
 import daos.UserDAO;
+import daos.PrivateMessageDAO;
 
 /**
  * Servlet implementation class FrontController
@@ -167,6 +169,47 @@ public class FrontController extends HttpServlet {
    			RequestDispatcher rd = request.getRequestDispatcher("/event.jsp") ;
 	   		rd.forward(request, response);
    		}
+   		else if (request.getParameter("site") != null && request.getParameter("site").equals("writeMessage"))
+   		{
+   			request.setAttribute("sender", (User)session);
+   			RequestDispatcher rd = request.getRequestDispatcher("/nachrichtVerfassen.jsp");
+   			rd.forward(request, response);
+   		}
+   		else if (request.getParameter("site") != null  && request.getParameter("site").equals("sendMessage")){
+   		   	PrivateMessage message = new PrivateMessage();
+   		   	message.setSender(session);
+   		   	//User receiver = 
+   		   	if (UserDAO.getUserDAO().getUserbyUsername(request.getParameter("receiver")) != null) {
+   		   	message.setReceiver(UserDAO.getUserDAO().getUserbyUsername(request.getParameter("receiver")));
+   		   	message.setBody(request.getParameter("body"));
+   		   	message.setSubject(request.getParameter("subject"));
+   		   	Date d = new Date();
+   		   	message.setSendDate(d.toString());
+   		   	PrivateMessageDAO.getPrivateMessageDAO().savePrivateMessage(message);
+   		   	
+   		   	
+   		   	  response.getWriter().append("<html><body>Message sent!</body></html>");
+   		   	 
+   		   	} else {
+   		   	response.getWriter().append("<html><body>User not available</body></html>");
+   		   	}
+   		   	
+   		   	} else if (request.getParameter("site") != null  && request.getParameter("site").equals("eingang")){
+   		   	List<PrivateMessage> messages = new ArrayList<PrivateMessage>() ;
+   		   	
+   		  for(PrivateMessage message : PrivateMessageDAO.getPrivateMessageDAO().getPrivateMessageList()){
+   		  if(message.getSender() != null && message.getReceiver() != null && message.getReceiver().getUserId().equals(session.getUserId())){
+   		  messages.add(message) ;
+   		 
+   		 
+   		  }
+   		  }
+   		   	
+   		   	request.setAttribute("messages", messages);
+   		   	
+   		   	RequestDispatcher rd = request.getRequestDispatcher("/posteingang.jsp") ;
+   		  rd.forward(request, response);
+   		   	}
    		else if(request.getParameter("site") != null && request.getParameter("site").equals("followUser")){
    			if(request.getParameter("whom") == null )
    			{
