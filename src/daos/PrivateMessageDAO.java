@@ -113,7 +113,7 @@ public class PrivateMessageDAO {
 			privateMessages.add(comment);
 
 			/** write new PrivateMessagelist to file */
-			output.writeObject(comment);
+			output.writeObject(privateMessages);
 			/** flush it */
 			output.flush();
 

@@ -1,9 +1,12 @@
 package model;
 
-public class PrivateMessage {
-
-	private Integer privateMessageId;
+import java.io.Serializable;
+import java.util.UUID;
+public class PrivateMessage implements Serializable{ 
 	
+	private static final long serialVersionUID = 1L; 
+
+	private String privateMessageId;
 	private String sendDate;
 	private String subject;
 	private String body;
@@ -11,10 +14,10 @@ public class PrivateMessage {
 	private User receiver;
 
 	public PrivateMessage() {
-
+		privateMessageId = UUID.randomUUID().toString();
 	}
-	
-	public PrivateMessage(Integer privateMessageId, String sendDate,
+
+	public PrivateMessage(String privateMessageId, String sendDate,
 			String subject, String body, User sender, User receiver) {
 		this.privateMessageId = privateMessageId;
 		this.sendDate = sendDate;
@@ -24,11 +27,11 @@ public class PrivateMessage {
 		this.receiver = receiver;
 	}
 
-	public Integer getPrivateMessageId() {
+	public String getPrivateMessageId() {
 		return privateMessageId;
 	}
 
-	public void setPrivateMessageId(Integer privateMessageId) {
+	public void setPrivateMessageId(String privateMessageId) {
 		this.privateMessageId = privateMessageId;
 	}
 
