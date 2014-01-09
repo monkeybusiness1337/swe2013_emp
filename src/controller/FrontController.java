@@ -67,8 +67,49 @@ public class FrontController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if(request.getParameter("site") != null && request.getParameter("site").equals("start")){
+			List<Event> theEventList = EventDAO.getEventDAO().getEventList();
+			request.setAttribute("theEventList", theEventList);
    			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp") ;
    			rd.forward(request, response);
+		}
+		else if( request.getParameter( "site" ) != null && request.getParameter( "site" ).equals( "showFollowedEvents" ) )
+		{
+			List<Event> theEventList = EventDAO.getEventDAO().getEventList();
+			List<Follow> theFollows = FollowDAO.getFollowDAO().getFollowList();
+			List<User> listUsers = UserDAO.getUserDAO().getUserList();
+			String ownId = ( ( User ) session ).getUserId();
+			for( Iterator<User> itUser = listUsers.iterator(); itUser.hasNext(); )
+			{
+				boolean foundInFollowed = false;
+				User tempUser = itUser.next();
+				for( Follow follow : theFollows )
+					if( follow.getFollower().equals( ownId ) && follow.getFollowed().equals( tempUser.getUserId() ) )
+					    foundInFollowed = true;
+				if( !foundInFollowed )
+					itUser.remove();
+			}
+			for( Iterator<Event> itEvent = theEventList.iterator(); itEvent.hasNext(); )
+			{
+				Event event = itEvent.next();
+				List<Enduser> participators = event.getParticipatedUsers();
+				boolean combUserFollow = false;
+				for( User user : listUsers )
+				{
+					for( Enduser enduser : participators )
+					{
+					    if( user.getUserId().equals( enduser.getUserId() ) )
+					    {
+						     combUserFollow = true;
+						     break;
+					    }
+				    }
+				}
+				if( !combUserFollow )
+				    itEvent.remove();
+			}
+			request.setAttribute( "theEventList", theEventList );
+			RequestDispatcher rd = request.getRequestDispatcher( "/index.jsp" );
+			rd.forward( request, response );
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("showEvents")){
    			RequestDispatcher rd = request.getRequestDispatcher("/eventsListen.jsp") ;
    			rd.forward(request, response);
@@ -134,6 +175,8 @@ public class FrontController extends HttpServlet {
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("logout")){
    			session = null ;
    			request.getSession(true).setAttribute("session", null) ;
+   			List<Event> theEventList = EventDAO.getEventDAO().getEventList();
+   			request.setAttribute( "theEventList", theEventList );
    			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp") ;
 	   		rd.forward(request, response);
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("createEvent")){
@@ -162,8 +205,6 @@ public class FrontController extends HttpServlet {
    	   		   	message.setSendDate(d.toString());
    	   		   	PrivateMessageDAO.getPrivateMessageDAO().savePrivateMessage(message);
    			}
-   			
-   			/* END Invite Users */
    			List<Event> events = new ArrayList<Event>() ;
    			for(Event ev : EventDAO.getEventDAO().getEventList()){
    				if(ev.getOrganizer() != null && ev.getOrganizer().getUserId().equals(session.getUserId())){
@@ -171,7 +212,6 @@ public class FrontController extends HttpServlet {
    				}
    			}
    			request.setAttribute("events", events);
-
    			RequestDispatcher rd = request.getRequestDispatcher("/eventsListen.jsp") ;
 	   		rd.forward(request, response);
    		}} else if(request.getParameter("site") != null  && request.getParameter("site").equals("showEvent")){
@@ -552,6 +592,8 @@ public class FrontController extends HttpServlet {
 			return ;
 		} else{
    			if(session == null){
+   				List<Event> theEventList = EventDAO.getEventDAO().getEventList();
+   				request.setAttribute( "theEventList", theEventList );
    				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp") ;
    				rd.forward(request, response);
    			} else if (session instanceof Enduser){
