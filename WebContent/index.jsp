@@ -1,4 +1,5 @@
-<%@ page import="daos.EventDAO" %>
+<%@ page import="model.Event" %>
+<%@ page import="java.util.List" %>
 <html>
 <head>
 <title>EMP - Event Management Project</title>
@@ -14,8 +15,9 @@
 		</div>
 		<%
 		int index = 0 ;
-		if(EventDAO.getEventDAO().getEventList() != null ){
-		for(model.Event event : EventDAO.getEventDAO().getEventList()){
+		List<Event> theEventList = (List<Event>)request.getAttribute( "theEventList" );
+		if( theEventList != null ){
+		for( Event event : theEventList ){
 		%>
 		<div class="eventContainer" style="height:450px" onclick="document.location='FrontController?site=showEvent&event=<%= event.getEventId() %>'">
 					<img src="<% if(event.getPicturePath() != null){ out.print( event.getPicturePath() ); } else{out.print( "img/flyer.png" ) ; } %>" style="width: 207px; padding:11px" onclick="document.location='FrontController?site=showEvent&event=<%= event.getEventId() %>'"/>
