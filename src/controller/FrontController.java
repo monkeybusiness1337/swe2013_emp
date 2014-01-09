@@ -145,7 +145,25 @@ public class FrontController extends HttpServlet {
    			event.setEventDate(request.getParameter("datum"));
    			event.setOrganizer((Organizer)session);
    			EventDAO.getEventDAO().saveEvent(event);
-
+   			
+   			/* Invite Users */
+   			String invite=request.getParameter("einladen");
+   			String[] splits= invite.split(";");
+   			
+   			for(int i=0;i<splits.length;i++)
+   			{
+   				PrivateMessage message = new PrivateMessage();
+   	   		   	message.setSender(session);
+   	   		   	if (UserDAO.getUserDAO().getUserbyUsername(splits[i]) != null) {
+   	   		   	message.setReceiver(UserDAO.getUserDAO().getUserbyUsername(splits[i]));
+   	   		   	message.setBody("You have been Invited to the event:" + request.getParameter("titel") +" am" + request.getParameter("datum"));
+   	   		   	message.setSubject("Event Einladung!");
+   	   		   	Date d = new Date();
+   	   		   	message.setSendDate(d.toString());
+   	   		   	PrivateMessageDAO.getPrivateMessageDAO().savePrivateMessage(message);
+   			}
+   			
+   			/* END Invite Users */
    			List<Event> events = new ArrayList<Event>() ;
    			for(Event ev : EventDAO.getEventDAO().getEventList()){
    				if(ev.getOrganizer() != null && ev.getOrganizer().getUserId().equals(session.getUserId())){
@@ -156,7 +174,7 @@ public class FrontController extends HttpServlet {
 
    			RequestDispatcher rd = request.getRequestDispatcher("/eventsListen.jsp") ;
 	   		rd.forward(request, response);
-   		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("showEvent")){
+   		}} else if(request.getParameter("site") != null  && request.getParameter("site").equals("showEvent")){
    			Event match = null ;
    			for(Event event : EventDAO.getEventDAO().getEventList()){
    				if(event.getEventId().equals(request.getParameter("event"))){

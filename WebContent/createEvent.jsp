@@ -32,6 +32,9 @@
 	                                <div class="clear"></div>
 					<hr style="margin-bottom: 15px"/>
 	                                <textarea name="beschreibung" style="font-family: arial; line-height:19px; text-align:justify; max-width:510px; width:510px; min-height: 500px;border-style:dashed; background-color:transparent">Beschreibungstext...</textarea>
+				<br>
+				<p>Bitte geben Sie die Name von die Personen die du einladen willst:(mit [,] trennen)</p>
+				<textarea name="einladen" style="font-family: arial; line-height:19px; text-align:justify; max-width:510px; width:510px; min-height: 25px;border-style:dashed; background-color:transparent">Einladen....</textarea>
 				</div>
 	        </div>
 			<div class="clear"></div>
