@@ -12,6 +12,7 @@ public class PrivateMessage implements Serializable{
 	private String body;
 	private User sender;
 	private User receiver;
+	private boolean read;
 
 	public PrivateMessage() {
 		privateMessageId = UUID.randomUUID().toString();
@@ -25,6 +26,7 @@ public class PrivateMessage implements Serializable{
 		this.body = body;
 		this.sender = sender;
 		this.receiver = receiver;
+		this.read = false;
 	}
 
 	public String getPrivateMessageId() {
@@ -73,6 +75,14 @@ public class PrivateMessage implements Serializable{
 
 	public void setReceiver(User receiver) {
 		this.receiver = receiver;
+	}
+	
+	public boolean getRead() {
+		return read;
+	}
+	
+	public void setRead(boolean read) {
+		this.read = read;
 	}
 
 }

@@ -293,7 +293,29 @@ public class FrontController extends HttpServlet {
 		   		request.setAttribute("messages", messages);
 		   		RequestDispatcher rd = request.getRequestDispatcher("/posteingang.jsp") ;
 		   		rd.forward(request, response);
-   			
+   		   	} else if(request.getParameter("site") != null && request.getParameter("site").equals("readMessage")) {
+   		   		String id = new String();
+		   		if (request.getParameter("id") != null) {
+		   			id = request.getParameter("id");
+		   		}
+		   		System.out.println(id);
+		   		for(PrivateMessage messageR : PrivateMessageDAO.getPrivateMessageDAO().getPrivateMessageList()) {
+		   			if (messageR.getPrivateMessageId().equals(id)) {
+		   				//System.out.println("IM in");
+		   				messageR.setRead(true);
+		   				PrivateMessageDAO.getPrivateMessageDAO().updatePrivateMessage(messageR);
+		   			}
+		   		}
+		   		List<PrivateMessage> messages = new ArrayList<PrivateMessage>() ;
+		   	
+		   		for(PrivateMessage message : PrivateMessageDAO.getPrivateMessageDAO().getPrivateMessageList()){
+		   			if(message.getSender() != null && message.getReceiver() != null && message.getReceiver().getUserId().equals(session.getUserId())){
+		   				messages.add(message) ;
+		   			}
+		   		}
+		   		request.setAttribute("messages", messages);
+		   		RequestDispatcher rd = request.getRequestDispatcher("/posteingang.jsp") ;
+		   		rd.forward(request, response);
    		   	} else if(request.getParameter("site") != null && request.getParameter("site").equals("followUser")){
    		   		if(request.getParameter("whom") == null ) {
    		   			response.getWriter().append("<html><body>User to follow was not specified.</body></html>");

@@ -19,14 +19,18 @@
                 <div id="messageFromUser" style="float:left">
                     <img src="img/unfug.jpg" style="width:40%;" />
                     <p style="font-size:12px; margin-top: 3px; margin-bottom: 0px"><%= message.getSender() == null ? "asd" : message.getSender().getUserName() %></p>
+                    <%
+                    if(message.getRead()==false) {
+                    %>
                     <p style="font-size:12px; margin-top: 3px; margin-bottom: 0px; color: red; font-weight:800">ungelesen</p>
+                    <%} %>
                 </div>
                 <div id="messageContent" style="float: left; background-color: darkgray; min-height: 70px; padding: 10px; color: white; font-size: 12px; width: 82%; margin-left: -90px">
                 <%= message.getBody() %>  
                 </div>
                 <div class="clear"></div>
                 <input type="submit" value="Antworten" name="antworten" class="buttonAmber" onclick="document.location='FrontController?site=writeMessage&to=<%= message.getSender().getUserName() %>'" style="margin-left: 110px; margin-top: 5px" />
-                <input type="submit" value="Gelesen" name="gelesen" class="buttonGray" style="margin-left: 0px; margin-top: 5px" />
+                <input type="submit" value="Gelesen" name="gelesen" class="buttonGray" onclick="document.location='FrontController?site=readMessage&id=<%= message.getPrivateMessageId() %>'" style="margin-left: 0px; margin-top: 5px" />
                 <input type="submit" value="L&ouml;schen" name="loeschen" class="buttonGray" onclick="document.location='FrontController?site=deleteMessage&id=<%= message.getPrivateMessageId() %>'"style="margin-left: 0px; margin-top: 5px" />
             </div>
 		<% } 
