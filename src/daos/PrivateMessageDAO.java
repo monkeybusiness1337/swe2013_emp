@@ -144,7 +144,7 @@ public class PrivateMessageDAO {
 			/** iterate over PrivateMessage list */
 			for (PrivateMessage u : privateMessages) {
 				/** compare by PrivateMessagename (PrivateMessagename = pk) */
-				if (u.getPrivateMessageId() == comment.getPrivateMessageId()) {
+				if (u.getPrivateMessageId().equals(comment.getPrivateMessageId())) {
 					/** if found the right PrivateMessage, save him and break the loop */
 					match = u;
 					break;
@@ -152,6 +152,7 @@ public class PrivateMessageDAO {
 			}
 
 			/** remove PrivateMessage from list */
+			if (match != null) 
 			privateMessages.remove(privateMessages.indexOf(match));
 
 			/** create the streams needed to write the file */

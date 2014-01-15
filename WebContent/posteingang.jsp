@@ -25,9 +25,9 @@
                 <%= message.getBody() %>  
                 </div>
                 <div class="clear"></div>
-                <input type="submit" value="Antworten" name="antworten" class="buttonAmber" style="margin-left: 110px; margin-top: 5px" />
+                <input type="submit" value="Antworten" name="antworten" class="buttonAmber" onclick="document.location='FrontController?site=writeMessage&to=<%= message.getSender().getUserName() %>'" style="margin-left: 110px; margin-top: 5px" />
                 <input type="submit" value="Gelesen" name="gelesen" class="buttonGray" style="margin-left: 0px; margin-top: 5px" />
-                <input type="submit" value="L&ouml;schen" name="loeschen" class="buttonGray" style="margin-left: 0px; margin-top: 5px" />
+                <input type="submit" value="L&ouml;schen" name="loeschen" class="buttonGray" onclick="document.location='FrontController?site=deleteMessage&id=<%= message.getPrivateMessageId() %>'"style="margin-left: 0px; margin-top: 5px" />
             </div>
 		<% } 
 			if(((List<PrivateMessage>)request.getAttribute("messages")).size() == 0)

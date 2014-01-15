@@ -227,8 +227,14 @@ public class FrontController extends HttpServlet {
    			RequestDispatcher rd = request.getRequestDispatcher("/event.jsp") ;
 	   		rd.forward(request, response);
    		}
-   		else if (request.getParameter("site") != null && request.getParameter("site").equals("writeMessage"))
-   		{
+   		else if (request.getParameter("site") != null && request.getParameter("site").equals("writeMessage")) {
+   			String to = new String();
+   			if (request.getParameter("to") != null) {
+   				to = request.getParameter("to");
+   			} else {
+   				to = "";
+   			}
+   			request.setAttribute("to", to);
    			request.setAttribute("sender", (User)session);
    			RequestDispatcher rd = request.getRequestDispatcher("/nachrichtVerfassen.jsp");
    			rd.forward(request, response);
@@ -244,37 +250,56 @@ public class FrontController extends HttpServlet {
    		   	Date d = new Date();
    		   	message.setSendDate(d.toString());
    		   	PrivateMessageDAO.getPrivateMessageDAO().savePrivateMessage(message);
-   		   	
-   		   	
-   		   	  response.getWriter().append("<html><body>Message sent!</body></html>");
+   		   	request.setAttribute("sender", (User)session);
+   		   	RequestDispatcher rd = request.getRequestDispatcher("/nachrichtVerfassen.jsp");
+			rd.forward(request, response);
+   		   	  //response.getWriter().append("<html><body>Message sent!</body></html>");
    		   	 
    		   	} else {
    		   	response.getWriter().append("<html><body>User not available</body></html>");
    		   	}
    		   	
    		   	} else if (request.getParameter("site") != null  && request.getParameter("site").equals("eingang")){
-   		   	List<PrivateMessage> messages = new ArrayList<PrivateMessage>() ;
+   		   		List<PrivateMessage> messages = new ArrayList<PrivateMessage>() ;
    		   	
-   		  for(PrivateMessage message : PrivateMessageDAO.getPrivateMessageDAO().getPrivateMessageList()){
-   		  if(message.getSender() != null && message.getReceiver() != null && message.getReceiver().getUserId().equals(session.getUserId())){
-   		  messages.add(message) ;
-   		 
-   		 
-   		  }
-   		  }
+   		   		for(PrivateMessage message : PrivateMessageDAO.getPrivateMessageDAO().getPrivateMessageList()){
+   		   			//System.out.println(message);
+   		   			if(message.getSender() != null && message.getReceiver() != null && message.getReceiver().getUserId().equals(session.getUserId())){
+   		   				messages.add(message) ;
+   		   			}
+   		   		}
+   		   		request.setAttribute("messages", messages);
+   		   		RequestDispatcher rd = request.getRequestDispatcher("/posteingang.jsp") ;
+   		   		rd.forward(request, response);
+   		   	} else if(request.getParameter("site") != null && request.getParameter("site").equals("deleteMessage")) {
+   		   		String id = new String();
+   		   		if (request.getParameter("id") != null) {
+   		   			id = request.getParameter("id");
+   		   		}
+   		   		System.out.println(id);
+   		   		for(PrivateMessage messageDel : PrivateMessageDAO.getPrivateMessageDAO().getPrivateMessageList()) {
+   		   			if (messageDel.getPrivateMessageId().equals(id)) {
+   		   				System.out.println("IM in");
+   		   				PrivateMessageDAO.getPrivateMessageDAO().deletePrivateMessage(messageDel);
+   		   			}
+   		   		}
+   		   		List<PrivateMessage> messages = new ArrayList<PrivateMessage>() ;
    		   	
-   		   	request.setAttribute("messages", messages);
-   		   	
-   		   	RequestDispatcher rd = request.getRequestDispatcher("/posteingang.jsp") ;
-   		  rd.forward(request, response);
-   		   	}
-   		else if(request.getParameter("site") != null && request.getParameter("site").equals("followUser")){
-   			if(request.getParameter("whom") == null )
-   			{
-   				response.getWriter().append("<html><body>User to follow was not specified.</body></html>");
-   				return;
-   			}
-   			User userToFollow = UserDAO.getUserDAO().getUserbyUserId(request.getParameter("whom"));
+		   		for(PrivateMessage message : PrivateMessageDAO.getPrivateMessageDAO().getPrivateMessageList()){
+		   			if(message.getSender() != null && message.getReceiver() != null && message.getReceiver().getUserId().equals(session.getUserId())){
+		   				messages.add(message) ;
+		   			}
+		   		}
+		   		request.setAttribute("messages", messages);
+		   		RequestDispatcher rd = request.getRequestDispatcher("/posteingang.jsp") ;
+		   		rd.forward(request, response);
+   			
+   		   	} else if(request.getParameter("site") != null && request.getParameter("site").equals("followUser")){
+   		   		if(request.getParameter("whom") == null ) {
+   		   			response.getWriter().append("<html><body>User to follow was not specified.</body></html>");
+   		   			return;
+   		   		}
+   		   		User userToFollow = UserDAO.getUserDAO().getUserbyUserId(request.getParameter("whom"));
    			if(request.getParameter("who") == null )
    			{
    				response.getWriter().append("<html><body>User who wants to follow not specified.</body></html>");

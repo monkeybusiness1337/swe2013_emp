@@ -22,7 +22,7 @@
                 <div id="messageContent" style="float: left; background-color: darkgray; min-height: 70px; padding: 10px; color: white; font-size: 12px; width: 82%; margin-left: -90px">
                 	<form action="FrontController" method="GET">
                    		<label for="" style="font-size:10pt; font-weight: bold">Send-To: </label>
-                    	<input type="text" name="receiver" value="" style="font-size: 10pt !important; margin-top:5px !important; margin-bottom: 10px !important ;width: 160px; border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/>
+                    	<input type="text" name="receiver" value="<%= request.getAttribute("to") %>" style="font-size: 10pt !important; margin-top:5px !important; margin-bottom: 10px !important ;width: 160px; border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/>
                     	<label for="" style="font-size:10pt; font-weight: bold">Subject: </label>
                     	<input type="text" name="subject" value="" style="font-size: 10pt !important; margin-top:5px !important; margin-bottom: 10px !important ;width: 160px; border-width:0px; background-color: transparent; border-bottom-width:1px; border-color: #f0bb2d; border-style:dashed; color: #f0bb2d"/>
                    		<textarea name ="body" style="max-width:630px;width:630px; min-height: 300px; color: white; font-family: Arial; background-color: transparent; border-color: white"></textarea>
