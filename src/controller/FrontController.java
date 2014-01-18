@@ -139,6 +139,16 @@ public class FrontController extends HttpServlet {
 			   	   			RequestDispatcher rd = request.getRequestDispatcher("/editUserInfoOrganizer.jsp") ;
 			   		   		rd.forward(request, response);
 		   				}
+		   				else if(request.getParameter("administrator") != null && request.getParameter("administrator").equals("on"))
+		   				{
+		   					newUser = new Administrator(request.getParameter("username"), request.getParameter("password")) ;
+		   					UserDAO.getUserDAO().saveUser(newUser);
+			   	   			request.setAttribute("user", newUser);
+			   	   			session = newUser ;
+			   	   			request.getSession(true).setAttribute("session", session) ;
+			   	   			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp") ;
+			   		   		rd.forward(request, response);
+		   				}
 		   				else{
 		   					response.getWriter().append("<html><body>You have to choose an usertype!</body></html>") ;
 		   					return ;
@@ -179,6 +189,9 @@ public class FrontController extends HttpServlet {
    			request.setAttribute( "theEventList", theEventList );
    			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp") ;
 	   		rd.forward(request, response);
+   		} else if(request.getParameter("site") != null && request.getParameter("site").equals("statistiken")){
+   			RequestDispatcher rd = request.getRequestDispatcher("/statistiken.jsp");
+   			rd.forward(request, response);
    		} else if(request.getParameter("site") != null  && request.getParameter("site").equals("createEvent")){
    			Event event = new Event() ;
    			event.setEventName(request.getParameter("titel")) ;
@@ -263,7 +276,6 @@ public class FrontController extends HttpServlet {
    		   		List<PrivateMessage> messages = new ArrayList<PrivateMessage>() ;
    		   	
    		   		for(PrivateMessage message : PrivateMessageDAO.getPrivateMessageDAO().getPrivateMessageList()){
-   		   			//System.out.println(message);
    		   			if(message.getSender() != null && message.getReceiver() != null && message.getReceiver().getUserId().equals(session.getUserId())){
    		   				messages.add(message) ;
    		   			}

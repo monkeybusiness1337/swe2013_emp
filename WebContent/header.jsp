@@ -32,7 +32,7 @@
 		</li>
 		<% if (session.getAttribute("session") instanceof Organizer){ %>
 			<li>
-			<a href="FrontController?site=listOwnEvents">Eigne Veranstaltungen</a>
+			<a href="FrontController?site=listOwnEvents">Eigene Veranstaltungen</a>
 			</li>
 		<% } %>
 		<li>
@@ -71,11 +71,12 @@
 			Retype Password:<br/>
 			<input type="password" name="password2" class="textField" /><br/><br/>
 			Usertype:<br/><br/>
-			<label for="" style="float:left">Enduser</label><input type="checkbox" name="enduser" id="enduser" style="float:left" onclick="document.getElementById('organizer').checked = false" checked/>
-			<label for="" style="float:left; margin-left: 15px">Organizer</label><input type="checkbox" name="organizer" id="organizer" style="float:left" onclick="document.getElementById('enduser').checked = false"/><br/>
+			<label for="" style="float:left">Enduser</label><input type="checkbox" name="enduser" id="enduser" style="float:left" onclick="document.getElementById('organizer').checked = false;document.getElementById('administrator').checked = false" checked/>
+			<label for="" style="float:left; margin-left: 15px">Organizer</label><input type="checkbox" name="organizer" id="organizer" style="float:left" onclick="document.getElementById('enduser').checked = false;document.getElementById('administrator').checked = false"/>
+			<label for="" style="float:left; margin-left: 15px">Administrator</label><input type="checkbox" name="administrator" id="administrator" style="float:left" onclick="document.getElementById('organizer').checked = false;document.getElementById('enduser').checked = false" /><br/>
 			<div class="clear"></div>
 			<input type="hidden" value="register" name="site" />
-			<input type="submit" class="buttonAmber" value="Login" style="margin-top:10px"/>
+			<input type="submit" class="buttonAmber" value="Register" style="margin-top:10px"/>
 			<input type="reset" class="buttonGray" value="Reset" style="margin-top:10px"/>	
 		</form>
 	</div>
