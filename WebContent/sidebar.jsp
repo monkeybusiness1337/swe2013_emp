@@ -4,27 +4,25 @@
 
 <% if(session.getAttribute("session") instanceof Administrator){ %>
 <div id="sidebarRight" style="margin-left: 50px; margin-top: 30px; border: 0px ; border-left-width:1px; border-style: solid; border-color: #bcbcbc; float: left; height: 100%; padding-left: 50px;">
-		<div class="sidebarItem" style="height: auto" onclick="if(document.getElementById('submenuItemsManageUsers').style.display=='none'){document.getElementById('submenuItemsManageUsers').style.display='block'}else{document.getElementById('submenuItemsManageUsers').style.display='none'}">
-			<img src="img/manageUsersIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
-			<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #565555">Manage Users</p>
-			<div class="clear"></div>
-                        <div id="submenuItemsManageUsers" style="display: none">
-                            <div style="width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>User listen</a></div>
-                            <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='#'>Administrator erstellen</a></div>
-                        </div>
-                </div>
-                <div class="sidebarItem" style="height: auto">
-			<img src="img/manageEventIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
-			<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #565555">Manage Events</p>
-			<div class="clear"></div>
-                </div>
-		<div class="sidebarItem">
+	            <div class="sidebarItem" style="height: auto" onclick="if(document.getElementById('statistikenItemsPMs').style.display=='none'){document.getElementById('statistikenItemsPMs').style.display='block'}else{document.getElementById('statistikenItemsPMs').style.display='none'}">
 			<div style="background-color: #f5f5f5; width: 300px; height: 50px; margin-top: 10px ; ">
-				<img src="img/editIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
-				<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #565555"><a href="FrontController?site=editUserInformation">Edit User Information</a></p>
+				<img src="img/statisticsIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
+				<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #565555">Administration</p>
 				<div class="clear"></div>
-			</div>
-		</div>
+                        </div>
+                     <div id="statistikenItemsPMs" style="display: none">
+                     <div style="width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='FrontController?site=statistiken'>Statistiken</a></div>
+                     <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='FrontController?site=writeToAll'>Write message to all users</a></div>
+                     </div>
+                </div>
+                <div class="clear"></div>
+                	      <div class="sidebarItem">
+				<div style="background-color: #f5f5f5; width: 300px; height: 50px; margin-top: 10px ; ">
+					<img src="img/manageUsersIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
+					<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #f0bb2d"><a href="FrontController?site=listUsers" style="color: rgb(86, 85, 85);text-decoration:none">View all users</a></p>
+					<div class="clear"></div>
+				</div>
+			</div> 
                 <div class="sidebarItem" style="height: auto" onclick="if(document.getElementById('submenuItemsPMs').style.display=='none'){document.getElementById('submenuItemsPMs').style.display='block'}else{document.getElementById('submenuItemsPMs').style.display='none'}">
 			<div style="background-color: #f5f5f5; width: 300px; height: 50px; margin-top: 10px ; ">
 				<img src="img/messageIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
@@ -36,12 +34,7 @@
                      <div style="margin-top:1px;width:80%;height:30px;background-color:darkgray; color: white; font-size:12px; padding-left: 60px; padding-top: 15px"><a href='FrontController?site=eingang'>Posteingang</a></div>
                      </div>
                 </div>
-                	      <div class="sidebarItem">
-				<div style="background-color: #f5f5f5; width: 300px; height: 50px; margin-top: 10px ; ">
-					<img src="img/manageUsersIcon.png" style="margin-top: 5px; margin-left: 5px; float: left;"/>
-					<p style="float: left; margin-left: 15px; font-size: 12px; margin-top: 18px; font-weight: 600; color: #f0bb2d"><a href="FrontController?site=listUsers" style="color: rgb(86, 85, 85);text-decoration:none">View all users</a></p>
-					<div class="clear"></div>
-				</div>
+                	  
 			</div>
 	</div>
 	<div class="clear"></div>
