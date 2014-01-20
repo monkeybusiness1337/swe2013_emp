@@ -272,7 +272,30 @@ public class FrontController extends HttpServlet {
    		   	response.getWriter().append("<html><body>User not available</body></html>");
    		   	}
    		   	
-   		   	} else if (request.getParameter("site") != null  && request.getParameter("site").equals("eingang")){
+   		} else if (request.getParameter("site") != null && request.getParameter("site").equals("writeToAll")) {
+   			request.setAttribute("sender", (User)session);
+   			RequestDispatcher rd = request.getRequestDispatcher("/nachrichtAlle.jsp");
+   			rd.forward(request, response);
+   		
+   		} else if (request.getParameter("site") != null && request.getParameter("site").equals("sendAll")) {
+   		   	if (session instanceof Administrator) {
+   		   		for (User user : UserDAO.getUserDAO().getUserList()) {
+   		   			PrivateMessage message = new PrivateMessage();
+   		   			message.setReceiver(user);
+   		   			message.setBody(request.getParameter("body"));
+   		   			message.setSubject(request.getParameter("subject"));
+   		   			Date d = new Date();
+   		   			message.setSendDate(d.toString());
+   		   			message.setSender(session);
+   		   			PrivateMessageDAO.getPrivateMessageDAO().savePrivateMessage(message);
+   		   		}
+   		   		request.setAttribute("sender", (User)session);
+   		   		RequestDispatcher rd = request.getRequestDispatcher("/nachrichtAlle.jsp");
+   		   		rd.forward(request, response);
+   		   	} else {
+   		   		response.getWriter().append("<html><body>You do not have the rights to do this</body></html>");
+   		   	}
+   		} else if (request.getParameter("site") != null  && request.getParameter("site").equals("eingang")){
    		   		List<PrivateMessage> messages = new ArrayList<PrivateMessage>() ;
    		   	
    		   		for(PrivateMessage message : PrivateMessageDAO.getPrivateMessageDAO().getPrivateMessageList()){
